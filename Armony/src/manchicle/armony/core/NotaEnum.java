@@ -21,6 +21,8 @@ public enum NotaEnum {
 	
 	protected String enarmonico;
 	
+	protected int altura;
+	
 	public String getEnarmonico() {
 		return enarmonico;
 	}
@@ -84,6 +86,7 @@ public enum NotaEnum {
 		if (indice > 11) {
 			
 			indice = indice - 12;
+			
 		}
 		
 		return NotaEnum.values()[indice];

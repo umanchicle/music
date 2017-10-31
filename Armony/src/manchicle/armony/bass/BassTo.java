@@ -1,13 +1,13 @@
-package manchicle.armony.guitar;
+package manchicle.armony.bass;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import manchicle.armony.core.NotaEnum;
 
-public class GuitarTo {
+public class BassTo {
 	
-	Map<GuitarSpaceEnum, GuitarPosturaTo[]> estructura = new HashMap<GuitarSpaceEnum, GuitarPosturaTo[]>();
+	Map<BassSpaceEnum, BassPosturaTo[]> estructura = new HashMap<BassSpaceEnum, BassPosturaTo[]>();
 	
 	NotaEnum[] notas;
 	
@@ -31,11 +31,11 @@ public class GuitarTo {
 		return name;
 	}
 	
-	public Map<GuitarSpaceEnum, GuitarPosturaTo[]> getEstructura() {
+	public Map<BassSpaceEnum, BassPosturaTo[]> getEstructura() {
 		return estructura;
 	}
 	
-	public void addEstructura(GuitarSpaceEnum espacio, GuitarPosturaTo[] postura) {
+	public void addEstructura(BassSpaceEnum espacio, BassPosturaTo[] postura) {
 		this.estructura.put(espacio, postura);
 	}
 	

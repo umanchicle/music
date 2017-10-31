@@ -38,7 +38,7 @@ public class Cadencia {
 		
 		Cadencia cadencia = new Cadencia();
 		
-		cadencia.add(new FMenor(NotaEnum.C));
+		cadencia.add(new FMajor(NotaEnum.C));
 //		cadencia.add(new FMaj6(NotaEnum.Csos));
 //		cadencia.add(new FMaj6(NotaEnum.D));
 //		cadencia.add(new FMaj6(NotaEnum.Dsos));

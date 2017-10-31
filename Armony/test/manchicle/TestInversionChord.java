@@ -3,6 +3,7 @@ package manchicle;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import manchicle.armony.core.FMajor;
 import manchicle.armony.core.FMenor;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
@@ -10,15 +11,15 @@ import manchicle.armony.core.NotaEnum;
 import manchicle.armony.core.TonoEnum;
 import manchicle.armony.guitar.GroupEnum;
 import manchicle.armony.guitar.Guitar;
+import manchicle.armony.guitar.GuitarPosition;
+import manchicle.armony.guitar.GuitarPositionEnum;
 import manchicle.armony.guitar.GuitarTo;
-import manchicle.armony.guitar.Posicion;
-import manchicle.armony.guitar.PositionEnum;
 
 public class TestInversionChord {
 	
 	public static void main(String[] args) {
 		
-		IFuncion f = new FMenor(NotaEnum.C, 16);
+		IFuncion f = new FMenor(NotaEnum.F);
 		
 		NotaEnum[] auxNotas = f.getEscala(TonoEnum.m);
 		
@@ -40,25 +41,25 @@ public class TestInversionChord {
 		
 		guitar.setRepresentativa(f.getFuncion().getRepresentativa());
 		
-		guitar.setGrupos(new GroupEnum[]{GroupEnum.Group1, GroupEnum.Group2, GroupEnum.Group3, GroupEnum.Group4, GroupEnum.Group5});
+		guitar.setGrupos(new GroupEnum[]{GroupEnum.Group1, GroupEnum.Group2, GroupEnum.Group3});
 		
-		guitar.add(PositionEnum.posicion1);
-		guitar.add(PositionEnum.posicion2);
-		guitar.add(PositionEnum.posicion3);
-		guitar.add(PositionEnum.posicion4);
-		guitar.add(PositionEnum.posicion5);
-		guitar.add(PositionEnum.posicion6);
-		guitar.add(PositionEnum.posicion7);
+		guitar.add(GuitarPositionEnum.posicion1);
+		guitar.add(GuitarPositionEnum.posicion2);
+		guitar.add(GuitarPositionEnum.posicion3);
+		guitar.add(GuitarPositionEnum.posicion4);
+		guitar.add(GuitarPositionEnum.posicion5);
+		guitar.add(GuitarPositionEnum.posicion6);
+		guitar.add(GuitarPositionEnum.posicion7);
 		
 		guitar.setFuncion(f);
 		
-		Iterator<Posicion> iterGuitar = guitar.iterator();
+		Iterator<GuitarPosition> iterGuitar = guitar.iterator();
 		
 		while (iterGuitar.hasNext()) {
 		
-			Posicion posicion = (Posicion) iterGuitar.next();
+			GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
 			
-			Posicion posChord = new Posicion();
+			GuitarPosition posChord = new GuitarPosition();
 			
 			posChord.setPosicion(posicion.getPosicion());
 			

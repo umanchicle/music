@@ -1,44 +1,36 @@
 package manchicle.armony.core;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class FMajor extends Major implements IFuncion{
-	
-	@Override
-	public FuncionEnum getFuncion() {
-		
-		return funcion.getFuncionType();
-	}
+public class FMaj69 extends Major implements IFuncion {
 
-	
-	private FMajor() {
-		
+	private FMaj69() {
+
+		//TODO pendiente de analisis para obtener escala natural
 		alteracionNatural = new String[]{"", ""};
 		
-		funcion.add(FuncionEnum.major);
-		
+		funcion.add(FuncionEnum.maj69);
 	}
 	
-	public FMajor(NotaEnum tonalidad){
-	
+	public FMaj69(NotaEnum tonalidad) {
+
 		this();
 		
 		setEscalas(tonalidad);
-
-	}
-
-	public FMajor(NotaEnum tonalidad, int type){
 		
+	}
+	
+	public FMaj69(NotaEnum tonalidad, int type) {
+
 		this();
 		
 		setEscalas(tonalidad, type);
-
+		
 	}
-
+	
 	public static void main(String[] args) {
 		
-		FMajor f = new FMajor(NotaEnum.C);
+		FMaj69 f = new FMaj69(NotaEnum.C);
 		
 		List<NotaEnum[]> listaNotas = f.getEscalas();
 		
@@ -48,7 +40,7 @@ public class FMajor extends Major implements IFuncion{
 			
 			for (int i = 0; i < notaEnums.length; i++) {
 				
-				System.out.print(notaEnums[i].enarmonico + " ");
+				System.out.print(notaEnums[i] + " ");
 				
 				//System.out.print(notaEnums[i].getIntervalo(notaEnums, TonoEnum.m) + "\n");
 			}
@@ -59,6 +51,15 @@ public class FMajor extends Major implements IFuncion{
 		
 	}
 
-
+	@Override
+	public FuncionEnum getFuncion() {
+		// TODO Auto-generated method stub
+		return funcion.getFuncionType();
+	}
+	
+	@Override
+	protected boolean isNatural(NotaEnum[] escala, String tonalidad) {
+		return true;
+	}
 	
 }

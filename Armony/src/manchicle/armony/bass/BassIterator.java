@@ -1,14 +1,14 @@
-package manchicle.armony.guitar;
+package manchicle.armony.bass;
 
 import java.util.Iterator;
 
-public class GuitarIterator implements Iterator<GuitarPosition>{
+public class BassIterator implements Iterator<BassPosition>{
 	
-	private GuitarPosition[] posiciones;
+	private BassPosition[] posiciones;
 	
 	private int location = 0;
 	 
-	public GuitarIterator(GuitarPosition[] posiciones) {
+	public BassIterator(BassPosition[] posiciones) {
 		
 		this.posiciones = posiciones;
 	}
@@ -28,7 +28,7 @@ public class GuitarIterator implements Iterator<GuitarPosition>{
 	}
 
 	@Override
-	public GuitarPosition next() {
+	public BassPosition next() {
 
 		return this.posiciones[location++];
 	}

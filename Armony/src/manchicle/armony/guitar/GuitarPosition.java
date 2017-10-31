@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Posicion {
+public class GuitarPosition {
 	
-	private PositionEnum posicion; 
+	private GuitarPositionEnum posicion; 
 
 	private GuitarTo diapasonArpegio = new GuitarTo();
 	
@@ -21,7 +21,7 @@ public class Posicion {
 		return diapasonAcordes;
 	}
 	
-	public Posicion() {
+	public GuitarPosition() {
 	}
 
 	public GuitarTo getGuitarTo() {
@@ -32,11 +32,11 @@ public class Posicion {
 		this.diapasonArpegio = guitarTo;
 	}
 	
-	public PositionEnum getPosicion() {
+	public GuitarPositionEnum getPosicion() {
 		return posicion;
 	}
 	
-	public void setPosicion(PositionEnum posicion) {
+	public void setPosicion(GuitarPositionEnum posicion) {
 		this.posicion = posicion;
 	}
 

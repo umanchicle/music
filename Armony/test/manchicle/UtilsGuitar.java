@@ -6,11 +6,11 @@ import java.util.Iterator;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.NotaEnum;
 import manchicle.armony.core.TonoEnum;
-import manchicle.armony.guitar.GuitarTo;
 import manchicle.armony.guitar.GroupEnum;
 import manchicle.armony.guitar.Guitar;
-import manchicle.armony.guitar.Posicion;
-import manchicle.armony.guitar.PositionEnum;
+import manchicle.armony.guitar.GuitarPosition;
+import manchicle.armony.guitar.GuitarPositionEnum;
+import manchicle.armony.guitar.GuitarTo;
 
 public final class UtilsGuitar {
 
@@ -39,17 +39,17 @@ public final class UtilsGuitar {
 		guitar.setGrupos(new GroupEnum[] { GroupEnum.Group1, GroupEnum.Group2,
 				GroupEnum.Group3 });
 
-		guitar.add(PositionEnum.posicion1);
+		guitar.add(GuitarPositionEnum.posicion1);
 
 		guitar.setFuncion(f);
 
-		Iterator<Posicion> iterGuitar = guitar.iterator();
+		Iterator<GuitarPosition> iterGuitar = guitar.iterator();
 
 		while (iterGuitar.hasNext()) {
 
-			Posicion posicion = (Posicion) iterGuitar.next();
+			GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
 
-			Posicion posChord = new Posicion();
+			GuitarPosition posChord = new GuitarPosition();
 
 			posChord.setPosicion(posicion.getPosicion());
 

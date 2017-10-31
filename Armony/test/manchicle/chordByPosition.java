@@ -5,15 +5,18 @@ import java.util.Iterator;
 
 import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.Escala;
+import manchicle.armony.core.F7Sos5;
 import manchicle.armony.core.FDefault;
+import manchicle.armony.core.FMaj6;
+import manchicle.armony.core.FMajor;
 import manchicle.armony.core.FMenor;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
 import manchicle.armony.core.TonoEnum;
 import manchicle.armony.guitar.Guitar;
-import manchicle.armony.guitar.Posicion;
-import manchicle.armony.guitar.PositionEnum;
+import manchicle.armony.guitar.GuitarPositionEnum;
+import manchicle.armony.guitar.GuitarPosition;
 
 public class chordByPosition {
 	
@@ -23,7 +26,7 @@ public class chordByPosition {
 		
 		Cadencia cadencia = new Cadencia();
 		
-		IFuncion funcion = new FMenor(NotaEnum.C);
+		IFuncion funcion = new F7Sos5(NotaEnum.C);
 		
 		cadencia.add(funcion);
 		
@@ -34,7 +37,7 @@ public class chordByPosition {
 		
 			Modo modo = (Modo) iter.next();
 
-			for (PositionEnum positionEnum : PositionEnum.values()) {
+			for (GuitarPositionEnum positionEnum : GuitarPositionEnum.values()) {
 				
 				System.out.println("\n------------o-------------\n");
 
@@ -59,7 +62,7 @@ public class chordByPosition {
 		
 	}
 
-	public static void printChord(NotaEnum[] nota, IFuncion f, PositionEnum positionEnum) {
+	public static void printChord(NotaEnum[] nota, IFuncion f, GuitarPositionEnum positionEnum) {
 		
 		Guitar guitar = new Guitar();
 		
@@ -71,11 +74,11 @@ public class chordByPosition {
 		
 		guitar.setFuncion(f);
 		
-		Iterator<Posicion> iterGuitar = guitar.iterator();
+		Iterator<GuitarPosition> iterGuitar = guitar.iterator();
 		
 		while (iterGuitar.hasNext()) {
 			
-			Posicion posicion = (Posicion) iterGuitar.next();
+			GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
 			
 			System.out.println(Arrays.asList(f.getEscala()));
 			

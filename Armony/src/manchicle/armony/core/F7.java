@@ -2,16 +2,16 @@ package manchicle.armony.core;
 
 import java.util.List;
 
-public class F7Dominante extends Major implements IFuncion{
+public class F7 extends Major implements IFuncion{
 
-	private F7Dominante() {
+	private F7() {
 		
 		alteracionNatural = new String[]{"", "b7"};
 		
 		funcion.add(FuncionEnum.maj7m);
 	}
 	
-	public F7Dominante(NotaEnum tonalidad){
+	public F7(NotaEnum tonalidad){
 		
 		this();
 		
@@ -19,7 +19,7 @@ public class F7Dominante extends Major implements IFuncion{
 
 	}
 	
-	public F7Dominante(NotaEnum tonalidad, int type){
+	public F7(NotaEnum tonalidad, int type){
 		
 		this();
 		
@@ -35,7 +35,7 @@ public class F7Dominante extends Major implements IFuncion{
 
 	public static void main(String[] args) {
 		
-		F7Dominante majsmen = new F7Dominante();
+		F7 majsmen = new F7();
 
 		List<NotaEnum[]> listaNotas = majsmen.getEscala(NotaEnum.Dsos, Escala.NATURAL);
 

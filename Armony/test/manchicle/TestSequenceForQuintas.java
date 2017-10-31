@@ -8,8 +8,8 @@ import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
 import manchicle.armony.core.TonoEnum;
 import manchicle.armony.guitar.Guitar;
-import manchicle.armony.guitar.Posicion;
-import manchicle.armony.guitar.PositionEnum;
+import manchicle.armony.guitar.GuitarPositionEnum;
+import manchicle.armony.guitar.GuitarPosition;
 
 public class TestSequenceForQuintas {
 	
@@ -51,7 +51,7 @@ public class TestSequenceForQuintas {
 		
 		guitar.setNotas(f.getEscala(TonoEnum.m, 3));
 
-		guitar.add(PositionEnum.posicion1);
+		guitar.add(GuitarPositionEnum.posicion1);
 //		guitar.add(PositionEnum.posicion7);
 //		guitar.add(PositionEnum.posicion3);
 //		guitar.add(PositionEnum.posicion4);
@@ -59,11 +59,11 @@ public class TestSequenceForQuintas {
 //		guitar.add(PositionEnum.posicion6);
 //		guitar.add(PositionEnum.posicion7);
 		
-		Iterator<Posicion> iterGuitar = guitar.iterator();
+		Iterator<GuitarPosition> iterGuitar = guitar.iterator();
 		
 		while (iterGuitar.hasNext()) {
 			
-			Posicion posicion = (Posicion) iterGuitar.next();
+			GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
 			System.out.println(posicion.getPosicion());
 			getEscala(f);
 			getArpegio(f);

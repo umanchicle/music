@@ -2,16 +2,17 @@ package manchicle.armony.guitar;
 
 public enum GroupEnum {
 	
-	Group1(new StringEnum[]{StringEnum.sexta,StringEnum.quinta,StringEnum.cuarta,StringEnum.tercera}),
-	Group2(new StringEnum[]{StringEnum.quinta,StringEnum.cuarta,StringEnum.tercera, StringEnum.segunda}),
-	Group3(new StringEnum[]{StringEnum.cuarta,StringEnum.tercera,StringEnum.segunda, StringEnum.primera}),
-	Group4(new StringEnum[]{StringEnum.sexta,StringEnum.cuarta,StringEnum.tercera,StringEnum.segunda,}),
-	Group5(new StringEnum[]{StringEnum.sexta,StringEnum.tercera,StringEnum.segunda, StringEnum.primera}),
-	Group6(new StringEnum[]{StringEnum.quinta,StringEnum.tercera,StringEnum.segunda, StringEnum.primera});
+	Group1(new GuitarStringEnum[]{GuitarStringEnum.sexta,GuitarStringEnum.quinta,GuitarStringEnum.cuarta,GuitarStringEnum.tercera}),
+	Group2(new GuitarStringEnum[]{GuitarStringEnum.quinta,GuitarStringEnum.cuarta,GuitarStringEnum.tercera, GuitarStringEnum.segunda}),
+	Group3(new GuitarStringEnum[]{GuitarStringEnum.cuarta,GuitarStringEnum.tercera,GuitarStringEnum.segunda, GuitarStringEnum.primera}),
+	Group4(new GuitarStringEnum[]{GuitarStringEnum.sexta,GuitarStringEnum.cuarta,GuitarStringEnum.tercera,GuitarStringEnum.segunda,}),
+	Group5(new GuitarStringEnum[]{GuitarStringEnum.sexta,GuitarStringEnum.tercera,GuitarStringEnum.segunda, GuitarStringEnum.primera}),
+	Group6(new GuitarStringEnum[]{GuitarStringEnum.quinta,GuitarStringEnum.tercera,GuitarStringEnum.segunda, GuitarStringEnum.primera}),
+	Group7(new GuitarStringEnum[]{GuitarStringEnum.tercera,GuitarStringEnum.segunda, GuitarStringEnum.primera});
 
-	protected StringEnum[] strings;
+	protected GuitarStringEnum[] strings;
 	
-	private GroupEnum(StringEnum[] strings) {
+	private GroupEnum(GuitarStringEnum[] strings) {
 		
 		this.strings = strings;
 		

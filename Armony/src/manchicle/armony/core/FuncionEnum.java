@@ -1,10 +1,13 @@
 package manchicle.armony.core;
 
+import java.util.HashMap;
+
 public enum FuncionEnum {
 	
 	//TODO: revisar necesidad de cambiar las funciones con 6 o 11, ya que pueden repetirse acordes
 	//TODO: 
-	aug("+++", new TonoEnum[]{TonoEnum.M, TonoEnum.M, TonoEnum.M}, "aug", 358)
+	aug("+++", new TonoEnum[]{TonoEnum.M, TonoEnum.M, TonoEnum.M}, "aug7", 358)
+	
 	, maug("++-", new TonoEnum[]{TonoEnum.M, TonoEnum.M, TonoEnum.m}, "maug7", 350)
 	, major("+-+", new TonoEnum[]{TonoEnum.M, TonoEnum.m, TonoEnum.M}, "maj7", 300)
 	, maj7m("+--", new TonoEnum[]{TonoEnum.M, TonoEnum.m, TonoEnum.m}, "7", 307)
@@ -65,6 +68,14 @@ public enum FuncionEnum {
 	, maj79sus4("D-C", new TonoEnum[]{TonoEnum.w, TonoEnum.m, TonoEnum.C}, "maj79(sus4)", 240)
 
 	, majsus4Sos5("A-+", new TonoEnum[]{TonoEnum.c, TonoEnum.m, TonoEnum.M}, "maj(sus4)#5", 450)
+	
+	, majsusSos4b13("Chh", new TonoEnum[]{TonoEnum.C, TonoEnum.h, TonoEnum.h}, "maj(sus#4)b13", 460)
+	
+	, majMen7susSos4Sos5("Cww", new TonoEnum[]{TonoEnum.C, TonoEnum.w, TonoEnum.w}, "7(sus#4)#5", 457)
+	
+	, majMen7sus413("Cww", new TonoEnum[]{TonoEnum.C, TonoEnum.w, TonoEnum.w}, "7(sus#4)#5", 457)
+	
+	, menMaj7sos5("Cww", new TonoEnum[]{TonoEnum.C, TonoEnum.w, TonoEnum.w}, "7(sus#4)#5", 457)
 	;
 	
 	protected String caption;
@@ -199,6 +210,8 @@ public enum FuncionEnum {
 		System.out.println(FuncionEnum.major.caption + ":" + tonos );
 		
 		for (TonoEnum tono : tonos) {
+			
+			obtainName()
 			
 			System.out.println(tono.peso + tono.name());
 			

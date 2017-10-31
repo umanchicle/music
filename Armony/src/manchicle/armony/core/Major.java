@@ -41,6 +41,11 @@ public class Major extends Escala{
 		return true;
 	}
 	
+	public Map<String, String[]> getCirculoQuintas() {
+				
+		return circuloQuintas;
+	}
+	
 	public static void main(String[] args) {
 		
 		Menor funcion = new Menor();

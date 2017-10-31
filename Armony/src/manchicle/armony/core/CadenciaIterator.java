@@ -32,4 +32,11 @@ public class CadenciaIterator implements Iterator<Modo>{
 
 		return this.modos[location++];
 	}
+
+
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+		
+	}
 }

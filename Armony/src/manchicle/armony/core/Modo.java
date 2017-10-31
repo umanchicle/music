@@ -98,6 +98,8 @@ public class Modo {
 					TonoEnum.getTono(distancias[1]).equals(TonoEnum.O) ? null :  TonoEnum.getTono(distancias[1]),
 					TonoEnum.getTono(distancias[2]).equals(TonoEnum.O) ? null :  TonoEnum.getTono(distancias[2])};
 			
+
+			
 			tonos = shiftNulls(tonos);
 			
 			funcionEnum = FuncionEnum.getFunction(tonos);
@@ -170,8 +172,8 @@ public class Modo {
 			
 			break;
 		case "+--":
-			funcion = new F7Dominante(tonalidad);
-			((F7Dominante)funcion).setType(escala);
+			funcion = new F7(tonalidad);
+			((F7)funcion).setType(escala);
 			
 			break;
 		case "---":
@@ -437,6 +439,20 @@ public class Modo {
 			((FMajsus4Sos5)funcion).setType(escala);
 			
 			break;
+			
+		case "Chh":
+			
+			funcion = new FMajsusSos4b13(tonalidad);
+			((FMajsusSos4b13)funcion).setType(escala);
+			
+			break;
+			
+		case "Cww":
+			
+			funcion = new F7susSos4Sos5(tonalidad);
+			((F7susSos4Sos5)funcion).setType(escala);
+			
+			break;
 
 		default:
 			funcion = new FDefault(tonalidad, escala);
@@ -510,11 +526,13 @@ public class Modo {
 		 * test modulo funcion
 		 */
 		
-		Modo modo = new Modo(new FMajor(NotaEnum.C));
+		Modo modo = new Modo(new FMajsusSos4b13(NotaEnum.C));
 		
 		for (Object funcion : modo.funciones) {
 			
 			IFuncion f = (IFuncion)funcion;
+			
+			System.out.println();
 			
 			System.out.println(f != null ? f.getFuncion() : null);
 			

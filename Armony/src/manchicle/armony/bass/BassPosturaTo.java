@@ -1,20 +1,20 @@
-package manchicle.armony.guitar;
+package manchicle.armony.bass;
 
 import manchicle.armony.core.NotaEnum;
 
-public class PosturaTo {
+public class BassPosturaTo {
 	
 	private NotaEnum note;
 	
-	private StringEnum string;
+	private Object string;
 	
-	private EspacioEnum espacio;
+	private BassSpaceEnum espacio;
 	
-	public EspacioEnum getEspacio() {
+	public BassSpaceEnum getEspacio() {
 		return espacio;
 	}
 	
-	public void setEspacio(EspacioEnum espacio) {
+	public void setEspacio(BassSpaceEnum espacio) {
 		this.espacio = espacio;
 	}
 
@@ -26,11 +26,11 @@ public class PosturaTo {
 		this.note = note;
 	}
 
-	public StringEnum getString() {
+	public Object getString() {
 		return string;
 	}
 
-	public void setString(StringEnum string) {
+	public void setString(Object string) {
 		this.string = string;
 	}
 	

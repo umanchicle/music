@@ -30,5 +30,11 @@ public class FuncionIterator implements Iterator<Patron> {
 		
 	}
 
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

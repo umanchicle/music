@@ -1,4 +1,4 @@
-package manchicle.armony.guitar;
+package manchicle.armony.common;
 
 public enum FingerEnum {
 	

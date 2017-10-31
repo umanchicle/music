@@ -11,8 +11,8 @@ import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
 import manchicle.armony.core.TonoEnum;
 import manchicle.armony.guitar.Guitar;
-import manchicle.armony.guitar.Posicion;
-import manchicle.armony.guitar.PositionEnum;
+import manchicle.armony.guitar.GuitarPositionEnum;
+import manchicle.armony.guitar.GuitarPosition;
 
 public class TestQuintas {
 
@@ -22,7 +22,7 @@ public class TestQuintas {
 		
 		Modo modo = new Modo(funcion);
 		
-		for (PositionEnum positionEnum : PositionEnum.values()) {
+		for (GuitarPositionEnum positionEnum : GuitarPositionEnum.values()) {
 			
 			for (Object o : modo.getFunciones()) {
 				
@@ -41,7 +41,7 @@ public class TestQuintas {
 		}
 	}
 	
-	public static void printChord(NotaEnum nota, IFuncion f, PositionEnum positionEnum) {
+	public static void printChord(NotaEnum nota, IFuncion f, GuitarPositionEnum positionEnum) {
 		
 		Guitar guitar = new Guitar();
 		
@@ -51,11 +51,11 @@ public class TestQuintas {
 		
 		guitar.setFuncion(f);
 		
-		Iterator<Posicion> iterGuitar = guitar.iterator();
+		Iterator<GuitarPosition> iterGuitar = guitar.iterator();
 		
 		while (iterGuitar.hasNext()) {
 			
-			Posicion posicion = (Posicion) iterGuitar.next();
+			GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
 			
 			System.out.println(Arrays.asList(f.getEscala()));
 			

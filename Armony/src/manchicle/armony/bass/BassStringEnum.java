@@ -1,8 +1,7 @@
-package manchicle.armony.guitar;
+package manchicle.armony.bass;
 
-public enum StringEnum {
-	sexta("6")
-	, quinta("5")
+public enum BassStringEnum {
+ quinta("5")
 	,cuarta("4")
 	, tercera("3")
 	, segunda("2")
@@ -10,7 +9,7 @@ public enum StringEnum {
 	
 	protected String string;
 	
-	private StringEnum(String string) {
+	private BassStringEnum(String string) {
 		this.string = string;
 	}
 	

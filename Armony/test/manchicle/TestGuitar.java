@@ -4,15 +4,15 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import manchicle.armony.core.Cadencia;
-import manchicle.armony.core.FMenor;
+import manchicle.armony.core.FMaj6;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.ModoSequence;
 import manchicle.armony.core.NotaEnum;
 import manchicle.armony.core.TonoEnum;
 import manchicle.armony.guitar.Guitar;
-import manchicle.armony.guitar.Posicion;
-import manchicle.armony.guitar.PositionEnum;
+import manchicle.armony.guitar.GuitarPosition;
+import manchicle.armony.guitar.GuitarPositionEnum;
 
 public class TestGuitar {
 
@@ -20,13 +20,13 @@ public class TestGuitar {
 		
 		Cadencia cadencia = new Cadencia();
 		
-		FMenor fm = new FMenor(NotaEnum.C,1);
+		FMaj6 fmaj6 = new FMaj6(NotaEnum.F);
 		
-		cadencia.add(fm,ModoSequence.nn1 );
+		cadencia.add(fmaj6 );
 		//cadencia.add(new F7Dominante(NotaEnum.A), SequenceModo.jazz);
-		System.out.println("Tonalidad de: " + fm.getTonalidad() + fm.getFuncion());
+		System.out.println("Tonalidad de: " + fmaj6.getTonalidad() + fmaj6.getFuncion());
 		
-		NotaEnum[] escala = fm.getEscala();
+		NotaEnum[] escala = fmaj6.getEscala();
 		System.out.println("Escala: " + Arrays.asList(escala));
 		System.out.println("Cadencia tipo: " + Arrays.asList(ModoSequence.nn1.toString()));
 		
@@ -45,7 +45,7 @@ public class TestGuitar {
 				
 				guitar.setNotas(funcion.getEscala(TonoEnum.m));
 
-				guitar.add(PositionEnum.posicion1);
+				guitar.add(GuitarPositionEnum.posicion1);
 //				guitar.add(PositionEnum.posicion2);
 //				guitar.add(PositionEnum.posicion3);
 //				guitar.add(PositionEnum.posicion4);
@@ -53,11 +53,11 @@ public class TestGuitar {
 //				guitar.add(PositionEnum.posicion6);
 //				guitar.add(PositionEnum.posicion7);
 				
-				Iterator<Posicion> iterGuitar = guitar.iterator();
+				Iterator<GuitarPosition> iterGuitar = guitar.iterator();
 				
 				while (iterGuitar.hasNext()) {
 					
-					Posicion posicion = (Posicion) iterGuitar.next();
+					GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
 					System.out.println(funcion.getTonalidad().getEnarmonico()+funcion.getFuncion().getNomenclatura());
 					System.out.println(posicion.getPosicion());
 					getEscala(funcion);
@@ -67,15 +67,6 @@ public class TestGuitar {
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	private static void getArpegio(IFuncion f) {
 		

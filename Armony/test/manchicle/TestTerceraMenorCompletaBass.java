@@ -3,6 +3,9 @@ package manchicle;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import manchicle.armony.bass.Bass;
+import manchicle.armony.bass.BassPosition;
+import manchicle.armony.bass.BassPositionEnum;
 import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.Escala;
 import manchicle.armony.core.FDefault;
@@ -11,11 +14,8 @@ import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
 import manchicle.armony.core.TonoEnum;
-import manchicle.armony.guitar.Guitar;
-import manchicle.armony.guitar.GuitarPositionEnum;
-import manchicle.armony.guitar.GuitarPosition;
 
-public class TestTerceraMenorCompleta {
+public class TestTerceraMenorCompletaBass {
 	
 	
 	public static void main(String[] args) {
@@ -34,7 +34,7 @@ public class TestTerceraMenorCompleta {
 		
 			Modo modo = (Modo) iter.next();
 
-			for (GuitarPositionEnum positionEnum : GuitarPositionEnum.values()) {
+			for (BassPositionEnum positionEnum : BassPositionEnum.values()) {
 				
 				System.out.println("\n------------o-------------\n");
 
@@ -59,23 +59,23 @@ public class TestTerceraMenorCompleta {
 		
 	}
 
-	public static void printChord(NotaEnum[] nota, IFuncion f, GuitarPositionEnum positionEnum) {
+	public static void printChord(NotaEnum[] nota, IFuncion f, BassPositionEnum positionEnum) {
 		
-		Guitar guitar = new Guitar();
+		Bass bass = new Bass();
 		
 		//guitar.setNotas(new NotaEnum[]{nota[0]});
 		
-		guitar.setNotas(nota);
+		bass.setNotas(nota);
 
-		guitar.add(positionEnum);
+		bass.add(positionEnum);
 		
-		guitar.setFuncion(f);
+		bass.setFuncion(f);
 		
-		Iterator<GuitarPosition> iterGuitar = guitar.iterator();
+		Iterator<BassPosition> iterGuitar = bass.iterator();
 		
 		while (iterGuitar.hasNext()) {
 			
-			GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
+			BassPosition posicion = (BassPosition) iterGuitar.next();
 			
 			System.out.println(Arrays.asList(f.getEscala()));
 			
@@ -103,7 +103,7 @@ public class TestTerceraMenorCompleta {
 			
 			System.out.println("\t"+nameNomenclaturaFuncion+"\n");
 			
-			System.out.println(guitar.toString(posicion));
+			System.out.println(bass.toString2(posicion));
 		}
 	}
 

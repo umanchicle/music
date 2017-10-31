@@ -43,6 +43,11 @@ public enum TonoEnum {
 
 	}
 	
+	public static TonoEnum getByName(String value) {
+		
+		return TonoEnum.valueOf(value);
+	}
+	
 	public static void main(String[] args) {
 		
 		TonoEnum tono = TonoEnum.valueOf("w");

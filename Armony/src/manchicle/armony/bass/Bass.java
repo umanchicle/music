@@ -1,4 +1,4 @@
-package manchicle.armony.guitar;
+package manchicle.armony.bass;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,6 +8,7 @@ import java.util.Map;
 import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.Escala;
 import manchicle.armony.core.FDefault;
+import manchicle.armony.core.FMajor;
 import manchicle.armony.core.FMen11b13;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
@@ -15,17 +16,17 @@ import manchicle.armony.core.NotaEnum;
 import manchicle.armony.core.Permutar;
 import manchicle.armony.core.TonoEnum;
 
-public class Guitar {
+public class Bass {
 	
 	private GroupEnum[] grupos = null; 
 	
-	private GuitarPosition[] posiciones = new GuitarPosition[50];
+	private BassPosition[] posiciones = new BassPosition[50];
 	
 	private int numero = 0;
 
 	private NotaEnum[] notas; 
 	
-	private GuitarPositionEnum posicion;
+	private BassPositionEnum posicion;
 	
 	private int representativa;
 	
@@ -50,7 +51,7 @@ public class Guitar {
 	Permutar permutacion = new Permutar();
 
 	
-	public Guitar() {
+	public Bass() {
 		
 		String[] elementos = { "0", "1", "2", "3"};
 
@@ -62,22 +63,22 @@ public class Guitar {
 		return notas;
 	}
 	
-	public GuitarIterator iterator(){
+	public BassIterator iterator(){
 		
-		return new GuitarIterator(posiciones);
+		return new BassIterator(posiciones);
 	}
 	
-	public void add(GuitarPositionEnum pos){
+	public void add(BassPositionEnum pos){
 		
-		GuitarTo diapasonTo = new GuitarTo();
+		BassTo diapasonTo = new BassTo();
 		
-		GuitarPosition posicion = new GuitarPosition();
+		BassPosition posicion = new BassPosition();
 		
 		posicion.setPosicion(pos);
 		
-		for (GuitarSpaceEnum espacioEnum : pos.spaces) {
+		for (BassSpaceEnum espacioEnum : pos.spaces) {
 			
-			GuitarPosturaTo[] listPosturas = getOcurrens(espacioEnum);
+			BassPosturaTo[] listPosturas = getOcurrens(espacioEnum);
 			
 			diapasonTo.addEstructura(espacioEnum, listPosturas);
 
@@ -88,7 +89,7 @@ public class Guitar {
 	}
 
 	
-	public GuitarPositionEnum getPosicion() {
+	public BassPositionEnum getPosicion() {
 		
 		return posicion;
 	}
@@ -98,11 +99,11 @@ public class Guitar {
 		this.notas = notas;
 	}
 	
-	private GuitarPosturaTo[] getOcurrens(GuitarSpaceEnum espacio) {
+	private BassPosturaTo[] getOcurrens(BassSpaceEnum espacio) {
 		
 		int totalStrings = espacio.notas.length;
 		
-		GuitarPosturaTo[] outPosturas = new GuitarPosturaTo[totalStrings];;
+		BassPosturaTo[] outPosturas = new BassPosturaTo[totalStrings];;
 
 		int countString = totalStrings;
 		
@@ -114,11 +115,11 @@ public class Guitar {
 			{
 				//TODO: verificar cambio de espacio
 				
-				GuitarPosturaTo postura = new GuitarPosturaTo();
+				BassPosturaTo postura = new BassPosturaTo();
 				
 				postura.setNote(notaEnum);
 				
-				postura.setString(GuitarStringEnum.values()[totalStrings - countString]);
+				postura.setString(BassStringEnum.values()[totalStrings - countString]);
 				
 				postura.setEspacio(espacio);
 				
@@ -146,28 +147,27 @@ public class Guitar {
 	}
 
 
-public String toString2(GuitarPosition pos) {
+public String toString2(BassPosition pos) {
 		
-		String aux[] = {"   ","   ","   ","   ","   ","   "};
+		String aux[] = {"   ","   ","   ","   ","   "};
 
-		aux[0] = "6  ";
-		aux[1] = "5  ";
-		aux[2] = "4  ";
-		aux[3] = "3  ";
-		aux[4] = "2  ";
-		aux[5] = "1  ";
+		aux[0] = "5  ";
+		aux[1] = "4  ";
+		aux[2] = "3  ";
+		aux[3] = "2  ";
+		aux[4] = "1  ";
 		
 		StringBuffer stringBuffer = new StringBuffer();
 		
 		Arrays.asList(aux, '|').toString();
 		
-		stringBuffer.append("    6   5   4   3   2   1"+ "\n\n");
+		stringBuffer.append("    5   4   3   2   1"+ "\n\n");
 		
 		for (int i = 0; i < pos.getPosicion().getSpaces().length; i++) {
 
-			GuitarSpaceEnum currentSpace = pos.getPosicion().getSpaces()[i];
+			BassSpaceEnum currentSpace = pos.getPosicion().getSpaces()[i];
 			
-			GuitarPosturaTo[] posturas = pos.getGuitarTo().getEstructura().get(currentSpace); 
+			BassPosturaTo[] posturas = pos.getGuitarTo().getEstructura().get(currentSpace); 
 			
 			if ( posturas != null){
 			
@@ -175,24 +175,24 @@ public String toString2(GuitarPosition pos) {
 				
 				
 			}else{
-				stringBuffer.append(String.valueOf(currentSpace.pos) + "   |   |   |   |   |   |" + "\n\n");
+				stringBuffer.append(String.valueOf(currentSpace.pos) + "   |   |   |   |   |" + "\n\n");
 			}
 		}
 		
 		return stringBuffer.toString();
 	}
 
-	public String toString(GuitarPosition pos) {
+	public String toString(BassPosition pos) {
 		
 		StringBuffer stringBuffer = new StringBuffer();
 		
-		stringBuffer.append("    6   5   4   3   2   1"+ "\n\n");
+		stringBuffer.append("    5   4   3   2   1"+ "\n\n");
 		
 		for (int i = 0; i < pos.getPosicion().getSpaces().length; i++) {
 
-			GuitarSpaceEnum currentSpace = pos.getPosicion().getSpaces()[i];
+			BassSpaceEnum currentSpace = pos.getPosicion().getSpaces()[i];
 			
-			GuitarPosturaTo[] posturas = pos.getGuitarTo().getEstructura().get(currentSpace); 
+			BassPosturaTo[] posturas = pos.getGuitarTo().getEstructura().get(currentSpace); 
 			
 			if ( posturas != null){
 			
@@ -200,7 +200,7 @@ public String toString2(GuitarPosition pos) {
 				
 				
 			}else{
-				stringBuffer.append(String.valueOf(currentSpace.pos) + "   |   |   |   |   |   |" + "\n\n");
+				stringBuffer.append(String.valueOf(currentSpace.pos) + "   |   |   |   |   |" + "\n\n");
 			}
 		}
 		
@@ -208,17 +208,17 @@ public String toString2(GuitarPosition pos) {
 	}
 	
 	
-	private String putNotas(GuitarPosturaTo[] posturas) {
+	private String putNotas(BassPosturaTo[] posturas) {
 		
 		StringBuffer s = new StringBuffer();
 		
-		for (GuitarPosturaTo GuitarPosturaTo : posturas) {
+		for (BassPosturaTo BassPosturaTo : posturas) {
 			
-			if (GuitarPosturaTo != null) {
+			if (BassPosturaTo != null) {
 				
 				relleno(s, "   ", " ");
 				
-				s.append(GuitarPosturaTo.getNote().getEnarmonico());	
+				s.append(BassPosturaTo.getNote().getEnarmonico());	
 				
 			} else {
 				relleno(s, "   |", "  |");
@@ -244,7 +244,7 @@ public String toString2(GuitarPosition pos) {
 	
 	private void cleanPosiciones() {
 		
-		this.posiciones = new GuitarPosition[50];
+		this.posiciones = new BassPosition[50];
 		
 		numero = 0;
 	}
@@ -254,7 +254,7 @@ public String toString2(GuitarPosition pos) {
 	 * Agrega conjunto de acordes comenzando en tonica en 3 ultimas cuerdas y en cuarta cuerda
 	 * @param pos
 	 */
-	public void generateChords(GuitarPosition pos) {
+	public void generateChords(BassPosition pos) {
 		
 		addChords(pos, 0); 
 		
@@ -276,15 +276,15 @@ public String toString2(GuitarPosition pos) {
 	 * Tonica
 	 * grupos de cuerdas
 	 * */
-	private void addChords(GuitarPosition pos, int inicio) {
+	private void addChords(BassPosition pos, int inicio) {
 		
-		GuitarTo guitarTo = new GuitarTo();
+		BassTo guitarTo = new BassTo();
 		
-		GuitarStringEnum tonica = null;
+		BassStringEnum tonica = null;
 		
 		for (String list : permutacion.getLista()) {
 			
-			Map<GuitarStringEnum, Integer> mapString = new HashMap<GuitarStringEnum, Integer>();
+			Map<BassStringEnum, Integer> mapString = new HashMap<BassStringEnum, Integer>();
 			
 			NotaEnum[] notas = addNotas(list);
 			
@@ -316,7 +316,7 @@ public String toString2(GuitarPosition pos) {
 		}
 	}
 
-	private String obteinNameChord(GuitarTo guitarTo, IFuncion funcion,	double distanciaOrderNotas) {
+	private String obteinNameChord(BassTo guitarTo, IFuncion funcion,	double distanciaOrderNotas) {
 		
 		double distanciaNotas;
 		
@@ -356,15 +356,15 @@ public String toString2(GuitarPosition pos) {
 		return nameChord;
 	}
 
-	private GuitarStringEnum obtainTonica(GuitarPosition pos, int inicio, GuitarStringEnum tonica,
-			Map<GuitarStringEnum, Integer> mapString, NotaEnum[] notas) {
+	private BassStringEnum obtainTonica(BassPosition pos, int inicio, BassStringEnum tonica,
+			Map<BassStringEnum, Integer> mapString, NotaEnum[] notas) {
 		int i = inicio;
 		
 		int cont=0;
 		
 		for (NotaEnum nota : notas) {
 			
-			GuitarStringEnum cuerda = getCuerda(pos.getPosicion(), nota, i);
+			BassStringEnum cuerda = getCuerda(pos.getPosicion(), nota, i);
 			
 			if(i == inicio) tonica = cuerda; 
 
@@ -408,7 +408,7 @@ public String toString2(GuitarPosition pos) {
 		return suma;
 	}
 
-	public boolean existsGroup(Map<GuitarStringEnum, Integer> mapString) {
+	public boolean existsGroup(Map<BassStringEnum, Integer> mapString) {
 		
 		boolean isFound = false;
 		
@@ -421,9 +421,9 @@ public String toString2(GuitarPosition pos) {
 		return isFound;
 	}
 
-	private boolean isFoundGroup(GuitarStringEnum[] group, Map<GuitarStringEnum, Integer> mapString) {
+	private boolean isFoundGroup(BassStringEnum[] group, Map<BassStringEnum, Integer> mapString) {
 		
-		for (GuitarStringEnum stringEnum : group) {
+		for (BassStringEnum stringEnum : group) {
 			
 			if(mapString.get(stringEnum) == null) return false;
 		}
@@ -472,15 +472,15 @@ public String toString2(GuitarPosition pos) {
 			return 0;
 	}
 
-	private GuitarTo generateGuitarTo(GuitarPosition pos, Map<GuitarStringEnum, Integer> mapString, NotaEnum[] notas, GuitarStringEnum sBajo) {
+	private BassTo generateGuitarTo(BassPosition pos, Map<BassStringEnum, Integer> mapString, NotaEnum[] notas, BassStringEnum sBajo) {
 		
-		GuitarTo out = new GuitarTo();
+		BassTo out = new BassTo();
 		
-		for (GuitarSpaceEnum espacioEnum : pos.getPosicion().getSpaces()) {
+		for (BassSpaceEnum espacioEnum : pos.getPosicion().getSpaces()) {
 			
-			GuitarPosturaTo[] newPosturas = null;
+			BassPosturaTo[] newPosturas = null;
 			
-			GuitarPosturaTo[] posturas = pos.getGuitarTo().getEstructura().get(espacioEnum);
+			BassPosturaTo[] posturas = pos.getGuitarTo().getEstructura().get(espacioEnum);
 			
 			if(posturas == null) continue;
 			
@@ -492,17 +492,17 @@ public String toString2(GuitarPosition pos) {
 		return out;
 	}
 
-	private GuitarPosturaTo[] getPosturas(GuitarPosturaTo[] posturas, GuitarSpaceEnum espacio, NotaEnum[] notas, Map<GuitarStringEnum, Integer> maplist, GuitarStringEnum sBajo) {
+	private BassPosturaTo[] getPosturas(BassPosturaTo[] posturas, BassSpaceEnum espacio, NotaEnum[] notas, Map<BassStringEnum, Integer> maplist, BassStringEnum sBajo) {
 
-		GuitarPosturaTo[] out = new GuitarPosturaTo[posturas.length];
+		BassPosturaTo[] out = new BassPosturaTo[posturas.length];
 		
-		GuitarPosturaTo newPostura;
+		BassPosturaTo newPostura;
 
 		if(posturas[sBajo.ordinal()] != null)
 
 			if (posturas[sBajo.ordinal()].getNote().equals(notas[0])) {
 				
-				newPostura = new GuitarPosturaTo();
+				newPostura = new BassPosturaTo();
 				
 				newPostura.setEspacio(espacio);
 				
@@ -525,7 +525,7 @@ public String toString2(GuitarPosition pos) {
 			
 			if(!posturas[i].getNote().equals(notas[j])) continue;
 			
-			newPostura = new GuitarPosturaTo();
+			newPostura = new BassPosturaTo();
 			
 			newPostura.setEspacio(espacio);
 			
@@ -541,13 +541,13 @@ public String toString2(GuitarPosition pos) {
 		return out;
 	}
 
-	public GuitarStringEnum getCuerda(GuitarPositionEnum pos, NotaEnum nota, int init) {
+	public BassStringEnum getCuerda(BassPositionEnum pos, NotaEnum nota, int init) {
 
-		for ( int i = init; i < GuitarStringEnum.values().length; i++) {
+		for ( int i = init; i < BassStringEnum.values().length; i++) {
 			
-			GuitarStringEnum string = GuitarStringEnum.values()[i];
+			BassStringEnum string = BassStringEnum.values()[i];
 			
-			for (GuitarSpaceEnum espacio : pos.getSpaces()) {
+			for (BassSpaceEnum espacio : pos.getSpaces()) {
 				
 				if(espacio == null) continue;
 				
@@ -580,13 +580,13 @@ public String toString2(GuitarPosition pos) {
 
 	public static void main(String[] args) {
 
-		Guitar guitar = new Guitar();
+		Bass bass = new Bass();
 		
 		Cadencia cadencia = new Cadencia();
 		
 //		cadencia.add(new FMen6(NotaEnum.C)/*, ModoSequence.nn1*/);
 		
-		cadencia.add(new FMen11b13(NotaEnum.C));
+		cadencia.add(new FMajor(NotaEnum.C));
 //		cadencia.add(new F7Dominante(NotaEnum.A), SequenceModo.jazz);
 		
 		Iterator<Modo> iter = cadencia.iterator();
@@ -623,20 +623,20 @@ public String toString2(GuitarPosition pos) {
 			
 			for (Object o : modo.getFunciones()) {
 
-				guitar.cleanPosiciones();
+				bass.cleanPosiciones();
 				
 				IFuncion f = (IFuncion)o;
 				
 				TonoEnum tono = TonoEnum.m;
 				
-				guitar.setNotas(f.getEscala(tono));
+				bass.setNotas(f.getEscala(tono));
 				
 				if (!(f instanceof FDefault))
-				guitar.setRepresentativa(f.getFuncion().getRepresentativa());
+				bass.setRepresentativa(f.getFuncion().getRepresentativa());
 				
-				guitar.setFuncion(f);
+				bass.setFuncion(f);
 				
-				guitar.add(GuitarPositionEnum.posicion1);
+				bass.add(BassPositionEnum.posicion1);
 //				guitar.add(PositionEnum.posicion2);
 //				guitar.add(PositionEnum.posicion3);
 //				guitar.add(PositionEnum.posicion4);
@@ -644,19 +644,19 @@ public String toString2(GuitarPosition pos) {
 //				guitar.add(PositionEnum.posicion6);
 //				guitar.add(PositionEnum.posicion7);
 				
-				guitar.setGrupos(new GroupEnum[]{
+				bass.setGrupos(new GroupEnum[]{
 						GroupEnum.Group1,
 						GroupEnum.Group2, 
-						GroupEnum.Group3, 
-						/*GroupEnum.Group4, 
+						/*GroupEnum.Group3, 
+						GroupEnum.Group4, 
 						GroupEnum.Group5, 
 						GroupEnum.Group6*/});
 				
-				Iterator<GuitarPosition> iterGuitar = guitar.iterator();
+				Iterator<BassPosition> iterGuitar = bass.iterator();
 				
 				while (iterGuitar.hasNext()) {
 				
-					GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
+					BassPosition posicion = (BassPosition) iterGuitar.next();
 					
 					System.out.println(posicion.getPosicion());
 					
@@ -684,21 +684,21 @@ public String toString2(GuitarPosition pos) {
 					
 					System.out.println("\t"+nameNomenclaturaFuncion+"\n");
 					
-					System.out.println(guitar.toString(posicion));
+					System.out.println(bass.toString(posicion));
 					
-					GuitarPosition posChord = new GuitarPosition();
+					BassPosition posChord = new BassPosition();
 					
 					posChord.setPosicion(posicion.getPosicion());
 					
-					guitar.generateChords(posicion);
+					bass.generateChords(posicion);
 					
-					for (GuitarTo guitarTo : posicion.getDiapasonAcordes()) {
+					for (BassTo guitarTo : posicion.getDiapasonAcordes()) {
 						
 						System.out.println(guitarTo.getName());
 						
 						posChord.setDiapasonArpegio(guitarTo);
 						
-						System.out.println(guitar.toString(posChord));
+						System.out.println(bass.toString(posChord));
 					}
 				}
 			}

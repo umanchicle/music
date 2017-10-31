@@ -2,7 +2,7 @@ package manchicle.armony.guitar;
 
 import manchicle.armony.core.NotaEnum;
 
-public enum EspacioEnum {
+public enum GuitarSpaceEnum {
 	
 	primer(1, new NotaEnum[]{NotaEnum.F, NotaEnum.Asos, NotaEnum.Dsos, NotaEnum.Gsos, NotaEnum.C, NotaEnum.F})
 	, segundo(2, new NotaEnum[]{NotaEnum.Fsos, NotaEnum.B, NotaEnum.E, NotaEnum.A, NotaEnum.Csos, NotaEnum.Fsos})
@@ -21,11 +21,11 @@ public enum EspacioEnum {
 	, decimoQuinto(15, new NotaEnum[]{NotaEnum.G, NotaEnum.C, NotaEnum.F, NotaEnum.Asos, NotaEnum.D, NotaEnum.G});
 	;
 	
-	protected NotaEnum[] notas;
+	public NotaEnum[] notas;
 	
-	protected int pos;
+	public int pos;
 	
-	private EspacioEnum(int pos, NotaEnum[] notas) {
+	private GuitarSpaceEnum(int pos, NotaEnum[] notas) {
 		this.notas = notas;
 		this.pos = pos;
 	}
