@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class FDisminuida extends Menor implements IFuncion{
 
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		
 		return funcion.getFuncionType();
 	}

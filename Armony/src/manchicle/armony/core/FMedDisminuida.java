@@ -28,7 +28,7 @@ public class FMedDisminuida extends Menor implements IFuncion{
 
 
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		
 		return funcion.getFuncionType();
 	}

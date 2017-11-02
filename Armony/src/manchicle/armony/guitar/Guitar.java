@@ -8,7 +8,10 @@ import java.util.Map;
 import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.Escala;
 import manchicle.armony.core.FDefault;
-import manchicle.armony.core.FMen11b13;
+import manchicle.armony.core.FuncionEnum;
+import manchicle.armony.core.FuncionEnumExt;
+import manchicle.armony.core.FuncionEnumExt2;
+import manchicle.armony.core.Function;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
@@ -22,7 +25,7 @@ public class Guitar {
 	private GuitarPosition[] posiciones = new GuitarPosition[50];
 	
 	private int numero = 0;
-
+	
 	private NotaEnum[] notas; 
 	
 	private GuitarPositionEnum posicion;
@@ -302,15 +305,27 @@ public String toString2(GuitarPosition pos) {
 			
 			guitarTo.setNotas(notas);
 			
-			guitarTo.setOrderNotas(notas[0].getOrderByNote(notas));
+			//guitarTo.setOrderNotas(notas[0].getOrderByNote(notas));
 			
-			IFuncion funcion = Modo.getFuncion(guitarTo.getOrderNotas());
-
-			double distanciaOrderNotas = sumaDistancias(guitarTo.getOrderNotas()); 
+			//IFuncion funcion = Modo.getFuncion(guitarTo.getOrderNotas());
 			
-			String nameChord = obteinNameChord(guitarTo, funcion, distanciaOrderNotas);
+			IFuncion funcion = Modo.getFuncion(guitarTo.getNotas());
 
-			guitarTo.setName(nameChord);
+			//double distanciaOrderNotas = sumaDistancias(guitarTo.getOrderNotas()); 
+			
+			//double distanciaOrderNotas = sumaDistancias(guitarTo.getNotas()); 
+			
+			//String nameChord = obteinNameChord(guitarTo, funcion, distanciaOrderNotas);
+
+			//guitarTo.setName(nameChord);
+			
+			if (funcion.getFuncion() instanceof FuncionEnumExt) {
+				 guitarTo.setName(  funcion.getTonalidad() + ((FuncionEnumExt)funcion.getFuncion()).getNomenclatura());
+				
+			}else if (funcion.getFuncion() instanceof FuncionEnumExt2) {
+				guitarTo.setName(  funcion.getTonalidad() + ((FuncionEnumExt2)funcion.getFuncion()).getNomenclatura());
+			}
+			
 			
 			pos.setDiapasonAcordes(guitarTo); 
 		}
@@ -326,7 +341,7 @@ public String toString2(GuitarPosition pos) {
 		
 		if(funcion instanceof FDefault){
 			
-			nameNomenclaturaFuncion = this.notas[0].getEnarmonico()+this.funcion.getFuncion().getNomenclatura();
+			nameNomenclaturaFuncion = this.notas[0].getEnarmonico()+((FDefault)this.funcion).getFuncion().getNomenclatura();
 			
 			distanciaNotas = sumaDistancias(this.notas);
 
@@ -340,13 +355,19 @@ public String toString2(GuitarPosition pos) {
 			
 		} else {
 			
-			nameNomenclaturaFuncion = this.notas[0].getEnarmonico()+funcion.getFuncion().getNomenclatura();
+			if (funcion.getFuncion() instanceof FuncionEnum) {
+				nameNomenclaturaFuncion = this.notas[0].getEnarmonico()+((FuncionEnum)this.funcion.getFuncion()).getNomenclatura();
+			}else if (funcion.getFuncion() instanceof FuncionEnumExt) {
+				nameNomenclaturaFuncion = this.notas[0].getEnarmonico()+((FuncionEnumExt)this.funcion.getFuncion()).getNomenclatura();
+			}else{
+				nameNomenclaturaFuncion = this.notas[0].getEnarmonico()+((FuncionEnumExt2)this.funcion.getFuncion()).getNomenclatura();
+			}
 			
 			distanciaNotas = sumaDistancias(funcion.getEscala(TonoEnum.m));
 			
 			StringBuffer s = new StringBuffer();
 			
-			for (double d : Escala.getDistancias(guitarTo.getOrderNotas())) {
+			for (double d : Escala.getDistancias(guitarTo.getNotas())) {
 				
 				s.append(d + ",");
 			}
@@ -586,7 +607,7 @@ public String toString2(GuitarPosition pos) {
 		
 //		cadencia.add(new FMen6(NotaEnum.C)/*, ModoSequence.nn1*/);
 		
-		cadencia.add(new FMen11b13(NotaEnum.C));
+		cadencia.add(new Function(new String[]{"", ""}, FuncionEnumExt.Fmaj7, NotaEnum.C));
 //		cadencia.add(new F7Dominante(NotaEnum.A), SequenceModo.jazz);
 		
 		Iterator<Modo> iter = cadencia.iterator();
@@ -614,8 +635,16 @@ public String toString2(GuitarPosition pos) {
 					
 					System.out.println(s.toString());
 				}else{
+					
+					if (f.getFuncion() instanceof FuncionEnum) {
+						System.out.println(f.getEscala()[0].getEnarmonico()+((FuncionEnum)f.getFuncion()).getNomenclatura());
+					}else if (f.getFuncion() instanceof FuncionEnumExt) {
+						System.out.println(f.getEscala()[0].getEnarmonico()+((FuncionEnumExt)f.getFuncion()).getNomenclatura());
+					}else{
+						System.out.println(f.getEscala()[0].getEnarmonico()+((FuncionEnumExt2)f.getFuncion()).getNomenclatura());
+					}
 				
-					System.out.println(f.getEscala()[0].getEnarmonico()+f.getFuncion().getNomenclatura());
+					
 				}
 			}
 			
@@ -632,7 +661,14 @@ public String toString2(GuitarPosition pos) {
 				guitar.setNotas(f.getEscala(tono));
 				
 				if (!(f instanceof FDefault))
-				guitar.setRepresentativa(f.getFuncion().getRepresentativa());
+				
+					if (f.getFuncion() instanceof FuncionEnum) {
+						guitar.setRepresentativa(((FuncionEnum)f.getFuncion()).getRepresentativa());
+					}else if (f.getFuncion() instanceof FuncionEnumExt) {
+						guitar.setRepresentativa(((FuncionEnumExt)f.getFuncion()).getRepresentativa());
+					}else{
+						guitar.setRepresentativa(((FuncionEnumExt2)f.getFuncion()).getRepresentativa());
+					}
 				
 				guitar.setFuncion(f);
 				
@@ -678,8 +714,14 @@ public String toString2(GuitarPosition pos) {
 						s.append("]");
 						nameNomenclaturaFuncion = s.toString();
 					}else{
-					
-					 nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+f.getFuncion().getNomenclatura();
+						if (f.getFuncion() instanceof FuncionEnum) {
+							nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnum)f.getFuncion()).getNomenclatura();
+						}else if (f.getFuncion() instanceof FuncionEnumExt) {
+							nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnumExt)f.getFuncion()).getNomenclatura();
+						}else{
+							nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnumExt2)f.getFuncion()).getNomenclatura();
+						}
+						
 					}
 					
 					System.out.println("\t"+nameNomenclaturaFuncion+"\n");

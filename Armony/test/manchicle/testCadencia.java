@@ -4,6 +4,9 @@ import java.util.Iterator;
 
 import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.FMajor;
+import manchicle.armony.core.FuncionEnumExt;
+import manchicle.armony.core.FuncionEnumExt2;
+import manchicle.armony.core.Function;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
@@ -14,7 +17,7 @@ public class testCadencia {
 	public static void main(String[] args) {
 		Cadencia cadencia = new Cadencia();
 		
-		cadencia.add(new FMajor(NotaEnum.F));
+		cadencia.add(new Function(new String[]{"",""}, FuncionEnumExt.Fmaj7, NotaEnum.C, 10));
 		
 		Iterator<Modo> iter = cadencia.iterator();
 		
@@ -53,7 +56,12 @@ public class testCadencia {
 				System.out.println();
 				
 				System.out.print("[");
-				System.out.print(funcion.getEscala()[0].getEnarmonico() + funcion.getFuncion().getNomenclatura());
+				if (funcion.getFuncion() instanceof FuncionEnumExt) {
+					System.out.print(funcion.getEscala()[0].getEnarmonico() + ((FuncionEnumExt)funcion.getFuncion()).getNomenclatura());					
+				}else {
+					System.out.print(funcion.getEscala()[0].getEnarmonico() + ((FuncionEnumExt2)funcion.getFuncion()).getNomenclatura());	
+				}
+
 				System.out.print("] ");
 
 				for (NotaEnum nota : funcion.getEscala()) {

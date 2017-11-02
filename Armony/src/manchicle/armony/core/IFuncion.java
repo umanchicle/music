@@ -6,7 +6,7 @@ public interface IFuncion {
 
 	public NotaEnum getTonalidad();
 	
-	public FuncionEnum getFuncion();
+	public Object getFuncion();
 
 	public NotaEnum[] getEscala();
 	
@@ -19,5 +19,7 @@ public interface IFuncion {
 	public List<NotaEnum[]> getEscalas();
 
 	public int getType();
+	
+	public void setType(NotaEnum[] escala);
 	
 }

@@ -3,12 +3,9 @@ package manchicle;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import manchicle.armony.core.F7;
-import manchicle.armony.core.FDisminuida;
-import manchicle.armony.core.FMaj7sus2;
-import manchicle.armony.core.FMajor;
-import manchicle.armony.core.FMen711;
-import manchicle.armony.core.FMenor;
+import manchicle.armony.core.FuncionEnumExt;
+import manchicle.armony.core.FuncionEnumExt2;
+import manchicle.armony.core.Function;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
@@ -19,11 +16,12 @@ import manchicle.armony.guitar.GuitarPosition;
 import manchicle.armony.guitar.GuitarPositionEnum;
 import manchicle.armony.guitar.GuitarTo;
 
-public class TestInversionChord {
+public class TestInversionChordExt {
 	
 	public static void main(String[] args) {
 		
-		IFuncion f = new FMen711(NotaEnum.C);
+		IFuncion f = new Function(new String[]{"", ""}, FuncionEnumExt.FMaj, NotaEnum.C, 21);
+		//IFuncion f = new Function(new String[]{"", ""}, FuncionEnumExt.FMin, NotaEnum.C, 25);
 		
 		NotaEnum[] auxNotas = f.getEscala(TonoEnum.m);
 		
@@ -43,7 +41,12 @@ public class TestInversionChord {
 		
 		guitar.setNotas(notas);
 		
-		guitar.setRepresentativa(f.getFuncion().getRepresentativa());
+		if (f.getFuncion() instanceof FuncionEnumExt) {
+			guitar.setRepresentativa(((FuncionEnumExt)f.getFuncion()).getRepresentativa());
+			
+		}else
+			guitar.setRepresentativa(((FuncionEnumExt2)f.getFuncion()).getRepresentativa());
+		
 		
 		guitar.setGrupos(new GroupEnum[]{GroupEnum.Group1, GroupEnum.Group2, GroupEnum.Group3});
 		

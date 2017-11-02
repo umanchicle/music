@@ -7,6 +7,10 @@ import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.Escala;
 import manchicle.armony.core.FDefault;
 import manchicle.armony.core.FMenor;
+import manchicle.armony.core.Funcion;
+import manchicle.armony.core.FuncionEnumExt;
+import manchicle.armony.core.FuncionEnumExt2;
+import manchicle.armony.core.Function;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
@@ -23,7 +27,7 @@ public class TestTerceraMenorCompleta {
 		
 		Cadencia cadencia = new Cadencia();
 		
-		IFuncion funcion = new FMenor(NotaEnum.C);
+		IFuncion funcion = new Function(FuncionEnumExt.Fmaj711, NotaEnum.C);
 		
 		cadencia.add(funcion);
 		
@@ -96,7 +100,12 @@ public class TestTerceraMenorCompleta {
 				nameNomenclaturaFuncion = s.toString();
 			}else{
 			
-				nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+f.getFuncion().getNomenclatura(); 
+				if (f.getFuncion() instanceof FuncionEnumExt) {
+					nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnumExt)f.getFuncion()).getNomenclatura();					
+				}else{
+					nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnumExt2)f.getFuncion()).getNomenclatura();	
+				}
+ 
 			}
 
 			

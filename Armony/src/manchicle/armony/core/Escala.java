@@ -331,7 +331,7 @@ public abstract class Escala{
 			}
 		};
 		
-		escala.funcion.add(FuncionEnum.major);
+		escala.funcion.add(FuncionEnumExt.FMin7);
 		
 		
 		Iterator<Patron> iter = escala.funcion.iterator();
@@ -344,7 +344,7 @@ public abstract class Escala{
 			
 			for (TonoEnum[] tonosPatron : listPatrones) {
 				
-				NotaEnum[] notas = escala.escalador(tonosPatron, NotaEnum.C);
+				NotaEnum[] notas = escala.escalador(tonosPatron, NotaEnum.D);
 				
 				System.out.println(Arrays.asList(notas));
 			}

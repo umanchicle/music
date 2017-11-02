@@ -6,6 +6,9 @@ import java.util.Iterator;
 import manchicle.armony.core.Escala;
 import manchicle.armony.core.FDefault;
 import manchicle.armony.core.FMenor;
+import manchicle.armony.core.FuncionEnumExt;
+import manchicle.armony.core.FuncionEnumExt2;
+import manchicle.armony.core.Function;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
@@ -18,7 +21,7 @@ public class TestOctave {
 
 	public static void main(String[] args) {
 	
-		IFuncion funcion = new FMenor(NotaEnum.C, 16);
+		IFuncion funcion = new Function(new String[]{"", ""}, FuncionEnumExt.Fmaj7, NotaEnum.C, 16);
 		
 		Modo modo = new Modo(funcion);
 		
@@ -66,6 +69,7 @@ public class TestOctave {
 			String nameNomenclaturaFuncion = "";
 			
 			if (f instanceof FDefault){
+				
 				double[] distancias = Escala.getDistancias(f.getEscala());
 				
 				StringBuffer s = new StringBuffer();
@@ -75,10 +79,20 @@ public class TestOctave {
 				s.append(distancias[2]+distancias[3]+",");
 				s.append(distancias[4]+distancias[5]);
 				s.append("]");
+				
 				nameNomenclaturaFuncion = s.toString();
+				
 			}else{
 				
-				nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+f.getFuncion().getNomenclatura();
+				if (f.getFuncion() instanceof FuncionEnumExt) {
+					
+					nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnumExt)f.getFuncion()).getNomenclatura();
+					
+				}else{
+					nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnumExt2)f.getFuncion()).getNomenclatura();
+
+				}
+				
 			}
 			
 			System.out.println("\t"+nameNomenclaturaFuncion+"\n");

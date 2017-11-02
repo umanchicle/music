@@ -5,7 +5,7 @@ import java.util.List;
 public class FMedAumentada extends Major implements IFuncion{
 
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		
 		return funcion.getFuncionType();
 	}

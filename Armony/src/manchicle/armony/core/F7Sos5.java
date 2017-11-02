@@ -34,7 +34,7 @@ public class F7Sos5 extends Major implements IFuncion {
 		
 		List<NotaEnum[]> listaNotas = f.getEscalas();
 		
-		System.out.println(listaNotas.get(0)[0].nota+f.getFuncion().nomenclatura);
+		//System.out.println(listaNotas.get(0)[0].nota+f.getFuncion().nomenclatura);
 
 		for (NotaEnum[] notaEnums : listaNotas) {
 			
@@ -52,7 +52,7 @@ public class F7Sos5 extends Major implements IFuncion {
 	}
 
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		// TODO Auto-generated method stub
 		return funcion.getFuncionType();
 	}

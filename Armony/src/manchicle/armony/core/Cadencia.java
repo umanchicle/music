@@ -38,7 +38,7 @@ public class Cadencia {
 		
 		Cadencia cadencia = new Cadencia();
 		
-		cadencia.add(new FMajor(NotaEnum.C));
+		cadencia.add(new Function(new String[]{"", ""}, FuncionEnumExt.Fmaj7, NotaEnum.C));
 //		cadencia.add(new FMaj6(NotaEnum.Csos));
 //		cadencia.add(new FMaj6(NotaEnum.D));
 //		cadencia.add(new FMaj6(NotaEnum.Dsos));
@@ -99,7 +99,12 @@ public class Cadencia {
 					System.out.println("]");
 				}
 				else{
-					System.out.println(funcion.getEscala()[0].nota+funcion.getFuncion().nomenclatura+Arrays.asList(funcion.getEscala()) + funcion.getFuncion().caption );
+					if (funcion.getFuncion() instanceof FuncionEnumExt) {
+						System.out.println(funcion.getEscala()[0].nota+((FuncionEnumExt)funcion.getFuncion()).nomenclatura+Arrays.asList(funcion.getEscala()) + ((FuncionEnumExt)funcion.getFuncion()).caption );	
+					}else{
+						System.out.println(funcion.getEscala()[0].nota+((FuncionEnumExt2)funcion.getFuncion()).nomenclatura+Arrays.asList(funcion.getEscala()) + ((FuncionEnumExt2)funcion.getFuncion()).caption );
+					}
+					
 				}
 
 				
@@ -128,7 +133,13 @@ public class Cadencia {
 									System.out.println("]");
 							}
 							else{
-								System.out.println(f.getEscala()[0].enarmonico+f.getFuncion().nomenclatura+"\t"+Arrays.asList(f.getEscala()));
+								
+								if (f.getFuncion() instanceof FuncionEnumExt) {
+									System.out.println(f.getEscala()[0].enarmonico+((FuncionEnumExt)f.getFuncion()).nomenclatura+"\t"+Arrays.asList(f.getEscala()));	
+								}else{
+									System.out.println(f.getEscala()[0].enarmonico+((FuncionEnumExt2)f.getFuncion()).nomenclatura+"\t"+Arrays.asList(f.getEscala()));	
+								}
+								
 							}
 //						}						
 					}
@@ -140,7 +151,7 @@ public class Cadencia {
 		}
 	}
 
-	protected static void printFile(IFuncion f, File file) {
+	private static void printFile(IFuncion f, File file) {
 		
 		
 //		try {

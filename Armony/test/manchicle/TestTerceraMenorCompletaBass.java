@@ -9,6 +9,7 @@ import manchicle.armony.bass.BassPositionEnum;
 import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.Escala;
 import manchicle.armony.core.FDefault;
+import manchicle.armony.core.FDisminuida;
 import manchicle.armony.core.FMenor;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
@@ -23,7 +24,7 @@ public class TestTerceraMenorCompletaBass {
 		
 		Cadencia cadencia = new Cadencia();
 		
-		IFuncion funcion = new FMenor(NotaEnum.C);
+		IFuncion funcion = new FDisminuida(NotaEnum.Dsos);
 		
 		cadencia.add(funcion);
 		

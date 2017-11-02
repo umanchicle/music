@@ -5,6 +5,9 @@ public class Modo {
 	
 	private Object[] funciones;
 	
+	private static Object functionType;
+	
+	
 	public Modo(IFuncion funcion, ModoSequence sm) {
 
 		this(funcion.getEscala(), sm);
@@ -37,7 +40,10 @@ public class Modo {
 		funciones = new Object[7];
 		
 		funciones[0] = funcion;
-
+		
+		if (funcion instanceof Function) {
+			setFunctionType(((Function)funcion).getFuncion());
+		}
 		modulador(funcion);	
 	}
 
@@ -48,6 +54,10 @@ public class Modo {
 		IFuncion funcion = getFuncion(escala); 
 				
 		funciones[0] = funcion; 
+		
+		if (funcion instanceof Function) {
+			setFunctionType(((Function)funcion).getFuncion());
+		}
 		
 		modulador(funcion);
 	}
@@ -81,29 +91,67 @@ public class Modo {
 		
 		double[] distancias = Escala.getDistancias(notas);
 
-		FuncionEnum funcionEnum;
+		Object funcionEnum;
 		
-		if(notas.length == 7)
 		
-			funcionEnum = FuncionEnum.getFunction(new TonoEnum[]{
-				TonoEnum.getTono(distancias[0] + distancias[1]),
-				TonoEnum.getTono(distancias[2] + distancias[3]),
-				TonoEnum.getTono(distancias[4] + distancias[5])
-			});
-		
-		else if(notas.length == 4) {
+		if(notas.length == 7){
 			
-			TonoEnum[] tonos = new TonoEnum[]{
-					TonoEnum.getTono(distancias[0]).equals(TonoEnum.O) ? null :  TonoEnum.getTono(distancias[0]),
-					TonoEnum.getTono(distancias[1]).equals(TonoEnum.O) ? null :  TonoEnum.getTono(distancias[1]),
-					TonoEnum.getTono(distancias[2]).equals(TonoEnum.O) ? null :  TonoEnum.getTono(distancias[2])};
-			
+			if (getFunctionType() instanceof FuncionEnum) {
+				funcionEnum = FuncionEnum.getFunction(new TonoEnum[]{
+						TonoEnum.getTono(distancias[0] + distancias[1]),
+						TonoEnum.getTono(distancias[2] + distancias[3]),
+						TonoEnum.getTono(distancias[4] + distancias[5])
+					});
+				
+			}else if (getFunctionType() instanceof FuncionEnumExt) {
+				funcionEnum = FuncionEnumExt.getFunction(new TonoEnum[]{
+						TonoEnum.getTono(distancias[0] + distancias[1]),
+						TonoEnum.getTono(distancias[2] + distancias[3]),
+						TonoEnum.getTono(distancias[4] + distancias[5])
+					});
+				
+				if (funcionEnum == null) {
+					funcionEnum = FuncionEnumExt2.getFunction(new TonoEnum[]{
+							TonoEnum.getTono(distancias[0] + distancias[1]),
+							TonoEnum.getTono(distancias[2] + distancias[3]),
+							TonoEnum.getTono(distancias[4] + distancias[5])
+						});
+					
+				}
+				
+			}else{
+				funcionEnum = FuncionEnumExt2.getFunction(new TonoEnum[]{
+						TonoEnum.getTono(distancias[0] + distancias[1]),
+						TonoEnum.getTono(distancias[2] + distancias[3]),
+						TonoEnum.getTono(distancias[4] + distancias[5])
+					});
+				if (funcionEnum == null) {
+					funcionEnum = FuncionEnumExt.getFunction(new TonoEnum[]{
+							TonoEnum.getTono(distancias[0] + distancias[1]),
+							TonoEnum.getTono(distancias[2] + distancias[3]),
+							TonoEnum.getTono(distancias[4] + distancias[5])
+						});
+					
+				}
+				
+				
+			}
 
-			
-			tonos = shiftNulls(tonos);
-			
-			funcionEnum = FuncionEnum.getFunction(tonos);
 		
+		
+		}else if(notas.length == 4) {
+			
+				TonoEnum[] tonos = new TonoEnum[]{
+						TonoEnum.getTono(distancias[0]),
+						TonoEnum.getTono(distancias[1]),
+						TonoEnum.getTono(distancias[2])};
+			
+			funcionEnum = FuncionEnumExt.getFunction(tonos);
+			
+			if (funcionEnum == null) {
+				funcionEnum = FuncionEnumExt2.getFunction(tonos);	
+			} 
+			
 		}else return null;
 		
 		return obtainFuncion(funcionEnum, getNotas(notas));
@@ -141,6 +189,17 @@ public class Modo {
 		}
 		
 		return notas;
+	}
+	
+	public static IFuncion obtainFuncion(Object funcionEnum, NotaEnum[] escala) {
+		
+		NotaEnum tonalidad = escala[0];
+		
+		IFuncion funcion = new Function(new String[]{"", ""}, funcionEnum, tonalidad);
+		
+		funcion.setType(escala);
+		
+		return funcion;
 	}
 
 	public static IFuncion obtainFuncion(FuncionEnum funcionEnum, NotaEnum[] escala) {
@@ -526,7 +585,7 @@ public class Modo {
 		 * test modulo funcion
 		 */
 		
-		Modo modo = new Modo(new FMajsusSos4b13(NotaEnum.C));
+		Modo modo = new Modo(new Function(new String[]{"", ""}, FuncionEnumExt.FMaj_1, NotaEnum.C));
 		
 		for (Object funcion : modo.funciones) {
 			
@@ -534,7 +593,11 @@ public class Modo {
 			
 			System.out.println();
 			
-			System.out.println(f != null ? f.getFuncion() : null);
+			if (f.getFuncion() instanceof FuncionEnumExt) {
+				System.out.println( f.getTonalidad() +  ((FuncionEnumExt)f.getFuncion()).nomenclatura);
+			}else if (f.getFuncion() instanceof FuncionEnumExt2) {
+				System.out.println( f.getTonalidad() +  ((FuncionEnumExt2)f.getFuncion()).nomenclatura);
+			}
 			
 		}
 	
@@ -543,6 +606,14 @@ public class Modo {
 //		System.out.println(Arrays.asList(Modo.modular(Modo.modular(new Integer[]{1,2,3,4}))));
 //		
 		System.out.println();
+	}
+
+	public static Object getFunctionType() {
+		return functionType;
+	}
+
+	public void setFunctionType(Object functionType) {
+		this.functionType = functionType;
 	}
 	
 }

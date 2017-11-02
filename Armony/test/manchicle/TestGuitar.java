@@ -5,6 +5,10 @@ import java.util.Iterator;
 
 import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.FMaj6;
+import manchicle.armony.core.FuncionEnum;
+import manchicle.armony.core.FuncionEnumExt;
+import manchicle.armony.core.FuncionEnumExt2;
+import manchicle.armony.core.Function;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.ModoSequence;
@@ -20,13 +24,13 @@ public class TestGuitar {
 		
 		Cadencia cadencia = new Cadencia();
 		
-		FMaj6 fmaj6 = new FMaj6(NotaEnum.F);
+		IFuncion f = new Function(FuncionEnumExt.Fmaj7, NotaEnum.F);
 		
-		cadencia.add(fmaj6 );
+		cadencia.add(f );
 		//cadencia.add(new F7Dominante(NotaEnum.A), SequenceModo.jazz);
-		System.out.println("Tonalidad de: " + fmaj6.getTonalidad() + fmaj6.getFuncion());
+		System.out.println("Tonalidad de: " + f.getTonalidad() + f.getFuncion());
 		
-		NotaEnum[] escala = fmaj6.getEscala();
+		NotaEnum[] escala = f.getEscala();
 		System.out.println("Escala: " + Arrays.asList(escala));
 		System.out.println("Cadencia tipo: " + Arrays.asList(ModoSequence.nn1.toString()));
 		
@@ -58,7 +62,12 @@ public class TestGuitar {
 				while (iterGuitar.hasNext()) {
 					
 					GuitarPosition posicion = (GuitarPosition) iterGuitar.next();
-					System.out.println(funcion.getTonalidad().getEnarmonico()+funcion.getFuncion().getNomenclatura());
+					if (funcion.getFuncion() instanceof FuncionEnumExt) {
+						System.out.println(funcion.getTonalidad().getEnarmonico()+((FuncionEnumExt)funcion.getFuncion()).getNomenclatura());						
+					}else{
+						System.out.println(funcion.getTonalidad().getEnarmonico()+((FuncionEnumExt2)funcion.getFuncion()).getNomenclatura());	
+					}
+
 					System.out.println(posicion.getPosicion());
 					getEscala(funcion);
 					getArpegio(funcion);

@@ -52,7 +52,7 @@ public class FMaj6sus2 extends Major implements IFuncion {
 	}
 
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		// TODO Auto-generated method stub
 		return funcion.getFuncionType();
 	}

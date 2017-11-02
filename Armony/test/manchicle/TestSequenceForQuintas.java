@@ -3,6 +3,9 @@ package manchicle;
 import java.util.Iterator;
 
 import manchicle.armony.core.FMenor;
+import manchicle.armony.core.FuncionEnumExt;
+import manchicle.armony.core.FuncionEnumExt2;
+import manchicle.armony.core.Function;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
@@ -15,7 +18,7 @@ public class TestSequenceForQuintas {
 	
 	public static void main(String[] args) {
 		
-		IFuncion fm = new FMenor(NotaEnum.C);
+		IFuncion fm = new Function(FuncionEnumExt.F1111, NotaEnum.C);
 		
 		Modo modo = new Modo(fm);
 		
@@ -30,7 +33,14 @@ public class TestSequenceForQuintas {
 				
 				f = (IFuncion)o;
 				
-				System.out.println("*"+f.getTonalidad().getEnarmonico() + f.getFuncion().getNomenclatura());
+				if (f.getFuncion() instanceof FuncionEnumExt) {
+					System.out.println("*"+f.getTonalidad().getEnarmonico() + ((FuncionEnumExt)f.getFuncion()).getNomenclatura());					
+				}else{
+					System.out.println("*"+f.getTonalidad().getEnarmonico() + ((FuncionEnumExt2)f.getFuncion()).getNomenclatura());					
+
+				}
+				
+
 				
 				printChord(f);					
 			}
@@ -96,7 +106,14 @@ public class TestSequenceForQuintas {
 
 	public static void printTonalidad(IFuncion fm, String ordinal) {
 		System.out.println("------------");
-		System.out.println(ordinal + " " +fm.getTonalidad().getEnarmonico()+fm.getFuncion().getNomenclatura());
+		
+		if (fm.getFuncion() instanceof FuncionEnumExt) {
+			System.out.println(ordinal + " " +fm.getTonalidad().getEnarmonico()+((FuncionEnumExt)fm.getFuncion()).getNomenclatura());			
+		}else{
+			System.out.println(ordinal + " " +fm.getTonalidad().getEnarmonico()+((FuncionEnumExt2)fm.getFuncion()).getNomenclatura());			
+
+		}
+
 		System.out.println("------------");
 	}
 

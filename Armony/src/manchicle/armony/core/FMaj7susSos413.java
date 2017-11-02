@@ -63,7 +63,7 @@ public class FMaj7susSos413 extends Menor implements IFuncion{
 	}
 
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		// TODO Auto-generated method stub
 		return funcion.getFuncionType();
 	}

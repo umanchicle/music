@@ -4,24 +4,40 @@ import java.util.Arrays;
 
 
 public enum NotaEnum {
-	C("C", "C"),
-	Csos("C#", "Db"),
-	D("D", "D"),
-	Dsos("D#", "Eb"),
-	E("E", "E"),
-	F("F", "F"),
-	Fsos("F#", "Gb"),
-	G("G", "G"),
-	Gsos("G#", "Ab"),
-	A("A", "A"),
-	Asos("A#", "Bb"),
-	B("B", "B");
+	C("C", "C", TonoEnum.O),
+	Csos("C#", "Db", TonoEnum.h),
+	D("D", "D", TonoEnum.w),
+	Dsos("D#", "Eb", TonoEnum.m),
+	E("E", "E", TonoEnum.M),
+	F("F", "F", TonoEnum.c),
+	Fsos("F#", "Gb", TonoEnum.C),
+	G("G", "G", TonoEnum.Q),
+	Gsos("G#", "Ab", TonoEnum.x),
+	A("A", "A", TonoEnum.X),
+	Asos("A#", "Bb", TonoEnum.s),
+	B("B", "B", TonoEnum.S);
 	
 	protected String nota;
 	
 	protected String enarmonico;
 	
+	protected TonoEnum tono;
+	
 	protected int altura;
+	
+	private NotaEnum(String nota, String enarmonico, TonoEnum tono) {
+		
+		this.nota = nota;
+		
+		this.enarmonico = enarmonico;
+		
+		this.tono = tono;
+		
+	}
+	
+	public boolean isInterval(Interval interval){
+		return this.tono.equals(interval.intervalo);
+	}
 	
 	public String getEnarmonico() {
 		return enarmonico;
@@ -135,6 +151,8 @@ public enum NotaEnum {
 	}
 
 	public static void main(String[] args) {
+		
+		System.out.println(NotaEnum.Dsos.isInterval(Interval.terceraMenor));
 		
 		NotaEnum[] notas = NotaEnum.B.getOrderByNote(new NotaEnum[]{NotaEnum.B, NotaEnum.D, NotaEnum.F, NotaEnum.A});
 		

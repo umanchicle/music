@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Funcion {
 	
-	private FuncionEnum funcionType;
+	private Object funcionType;
 	
 	private Patron[] patrones = new Patron[30];
 	
@@ -15,16 +15,19 @@ public class Funcion {
 	public Funcion() {
 	}
 	
-	protected FuncionEnum getFuncionType() {
+	public Object getFuncionType() {
 		
 		return funcionType;
 	}
 
-	public void add(FuncionEnum function ){
+	public void add(Object function ){
 		
 		this.funcionType = function;
 		
-		Patron p = new Patron(function);
+		Patron p = Patron.getInstance(function);
+		
+		p.setFunction(function);
+		p.setPatrones(p.getCombinatoria());
 		
 		patrones[numero++] = p;
 	}
@@ -37,15 +40,15 @@ public class Funcion {
 	public static void main(String[] args) {
 		Funcion f = new Funcion();
 
-		f.add(FuncionEnum.maj7m);
+		f.add(FuncionEnumExt.FMaj);
 		
 		Iterator<Patron> iter = f.iterator();
 		
 		while (iter.hasNext()) {
 			Patron patron = (Patron) iter.next();
 			
-			System.out.println(patron.getFunction().name() 
-					+ " " +patron.getFunction().caption);
+			System.out.println(((FuncionEnumExt)patron.getFunction()).name() 
+					+ " " +((FuncionEnumExt)patron.getFunction()).caption);
 			
 			List<TonoEnum[]> listPatrones = patron.getPatrones();
 			

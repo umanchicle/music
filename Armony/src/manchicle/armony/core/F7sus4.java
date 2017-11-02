@@ -52,7 +52,7 @@ public class F7sus4 extends Major implements IFuncion {
 	}
 
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		// TODO Auto-generated method stub
 		return funcion.getFuncionType();
 	}

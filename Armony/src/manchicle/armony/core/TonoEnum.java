@@ -2,26 +2,28 @@ package manchicle.armony.core;
 
 public enum TonoEnum {
 
-	h("h", 0.5), 
-	w("w", 1.0), 
-	m("-3", 1.5), 
-	M("+3", 2.0), 
-	c("4-", 2.5), 
-	C("4+", 3.0), 
-	Q("5", 3.5),
-	x("6-", 4.0),
-	X("6+", 4.5),
-	s("7-", 5.0), 
-	S("7+", 5.5),
-	O("8", 0.0);
+	h("b9", "b2", 0.5), 
+	w("9", "2", 1.0), 
+	m("-", "-3", 1.5), 
+	M("", "+3", 2.0), 
+	c("11", "4", 2.5), 
+	C("#11", "b5",  3.0), 
+	Q("", "5", 3.5),
+	x("b13", "#5", 4.0),
+	X("13", "6", 4.5),
+	s("7", "7", 5.0), 
+	S("maj7", "+7", 5.5),
+	O("", "",0.0);
 	
-	protected String tono;
+	protected String name;
+	protected String name2;
 	protected Double peso;
 	
-	private TonoEnum(String tono, Double value) {
+	private TonoEnum(String value, String value2 , Double value3) {
 			
-		this.tono = tono;
-		this.peso = value;
+		this.name = value;
+		this.name2 = value2;
+		this.peso = value3;
 		
 	}
 	

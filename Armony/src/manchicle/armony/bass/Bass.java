@@ -8,8 +8,10 @@ import java.util.Map;
 import manchicle.armony.core.Cadencia;
 import manchicle.armony.core.Escala;
 import manchicle.armony.core.FDefault;
-import manchicle.armony.core.FMajor;
-import manchicle.armony.core.FMen11b13;
+import manchicle.armony.core.FuncionEnum;
+import manchicle.armony.core.FuncionEnumExt;
+import manchicle.armony.core.FuncionEnumExt2;
+import manchicle.armony.core.Function;
 import manchicle.armony.core.IFuncion;
 import manchicle.armony.core.Modo;
 import manchicle.armony.core.NotaEnum;
@@ -278,7 +280,7 @@ public String toString2(BassPosition pos) {
 	 * */
 	private void addChords(BassPosition pos, int inicio) {
 		
-		BassTo guitarTo = new BassTo();
+		BassTo bassTo = new BassTo();
 		
 		BassStringEnum tonica = null;
 		
@@ -298,64 +300,24 @@ public String toString2(BassPosition pos) {
 			
 			if(getGrupos() != null) if (!existsGroup(mapString)) continue;
 			
-			guitarTo = generateGuitarTo(pos, mapString, notas, tonica);
+			bassTo = generateGuitarTo(pos, mapString, notas, tonica);
 			
-			guitarTo.setNotas(notas);
+			bassTo.setNotas(notas);
 			
-			guitarTo.setOrderNotas(notas[0].getOrderByNote(notas));
-			
-			IFuncion funcion = Modo.getFuncion(guitarTo.getOrderNotas());
+			IFuncion funcion = Modo.getFuncion(bassTo.getNotas());
 
-			double distanciaOrderNotas = sumaDistancias(guitarTo.getOrderNotas()); 
+			if (funcion.getFuncion() instanceof FuncionEnumExt) {
+				 bassTo.setName(  funcion.getTonalidad() + ((FuncionEnumExt)funcion.getFuncion()).getNomenclatura());
+				
+			}else if (funcion.getFuncion() instanceof FuncionEnumExt2) {
+				bassTo.setName(  funcion.getTonalidad() + ((FuncionEnumExt2)funcion.getFuncion()).getNomenclatura());
+			}
 			
-			String nameChord = obteinNameChord(guitarTo, funcion, distanciaOrderNotas);
-
-			guitarTo.setName(nameChord);
-			
-			pos.setDiapasonAcordes(guitarTo); 
+			pos.setDiapasonAcordes(bassTo); 
 		}
 	}
 
-	private String obteinNameChord(BassTo guitarTo, IFuncion funcion,	double distanciaOrderNotas) {
-		
-		double distanciaNotas;
-		
-		String nameChord  = "";
-		
-		String nameNomenclaturaFuncion = "";
-		
-		if(funcion instanceof FDefault){
-			
-			nameNomenclaturaFuncion = this.notas[0].getEnarmonico()+this.funcion.getFuncion().getNomenclatura();
-			
-			distanciaNotas = sumaDistancias(this.notas);
-
-			StringBuffer s = new StringBuffer();
-			
-			for (double d : Escala.getDistancias(guitarTo.getOrderNotas())) {
-				
-				s.append(d + ",");
-			}
-			nameChord  = nameNomenclaturaFuncion + "*" + s.toString();
-			
-		} else {
-			
-			nameNomenclaturaFuncion = this.notas[0].getEnarmonico()+funcion.getFuncion().getNomenclatura();
-			
-			distanciaNotas = sumaDistancias(funcion.getEscala(TonoEnum.m));
-			
-			StringBuffer s = new StringBuffer();
-			
-			for (double d : Escala.getDistancias(guitarTo.getOrderNotas())) {
-				
-				s.append(d + ",");
-			}
-			
-			nameChord  = evaluateName(distanciaOrderNotas, distanciaNotas, nameNomenclaturaFuncion )+ " " + s.toString();
-		}
-		return nameChord;
-	}
-
+	
 	private BassStringEnum obtainTonica(BassPosition pos, int inicio, BassStringEnum tonica,
 			Map<BassStringEnum, Integer> mapString, NotaEnum[] notas) {
 		int i = inicio;
@@ -586,7 +548,7 @@ public String toString2(BassPosition pos) {
 		
 //		cadencia.add(new FMen6(NotaEnum.C)/*, ModoSequence.nn1*/);
 		
-		cadencia.add(new FMajor(NotaEnum.C));
+		cadencia.add(new Function(new String[]{"", ""}, FuncionEnumExt.Fmaj7, NotaEnum.C, 9));
 //		cadencia.add(new F7Dominante(NotaEnum.A), SequenceModo.jazz);
 		
 		Iterator<Modo> iter = cadencia.iterator();
@@ -614,8 +576,16 @@ public String toString2(BassPosition pos) {
 					
 					System.out.println(s.toString());
 				}else{
+					
+					if (f.getFuncion() instanceof FuncionEnum) {
+						System.out.println(f.getEscala()[0].getEnarmonico()+((FuncionEnum)f.getFuncion()).getNomenclatura());
+					}else if (f.getFuncion() instanceof FuncionEnumExt) {
+						System.out.println(f.getEscala()[0].getEnarmonico()+((FuncionEnumExt)f.getFuncion()).getNomenclatura());
+					}else{
+						System.out.println(f.getEscala()[0].getEnarmonico()+((FuncionEnumExt2)f.getFuncion()).getNomenclatura());
+					}
 				
-					System.out.println(f.getEscala()[0].getEnarmonico()+f.getFuncion().getNomenclatura());
+					
 				}
 			}
 			
@@ -632,7 +602,14 @@ public String toString2(BassPosition pos) {
 				bass.setNotas(f.getEscala(tono));
 				
 				if (!(f instanceof FDefault))
-				bass.setRepresentativa(f.getFuncion().getRepresentativa());
+				
+					if (f.getFuncion() instanceof FuncionEnum) {
+						bass.setRepresentativa(((FuncionEnum)f.getFuncion()).getRepresentativa());
+					}else if (f.getFuncion() instanceof FuncionEnumExt) {
+						bass.setRepresentativa(((FuncionEnumExt)f.getFuncion()).getRepresentativa());
+					}else{
+						bass.setRepresentativa(((FuncionEnumExt2)f.getFuncion()).getRepresentativa());
+					}
 				
 				bass.setFuncion(f);
 				
@@ -647,8 +624,8 @@ public String toString2(BassPosition pos) {
 				bass.setGrupos(new GroupEnum[]{
 						GroupEnum.Group1,
 						GroupEnum.Group2, 
-						/*GroupEnum.Group3, 
-						GroupEnum.Group4, 
+						GroupEnum.Group3, 
+						/*GroupEnum.Group4, 
 						GroupEnum.Group5, 
 						GroupEnum.Group6*/});
 				
@@ -678,8 +655,14 @@ public String toString2(BassPosition pos) {
 						s.append("]");
 						nameNomenclaturaFuncion = s.toString();
 					}else{
-					
-					 nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+f.getFuncion().getNomenclatura();
+						if (f.getFuncion() instanceof FuncionEnum) {
+							nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnum)f.getFuncion()).getNomenclatura();
+						}else if (f.getFuncion() instanceof FuncionEnumExt) {
+							nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnumExt)f.getFuncion()).getNomenclatura();
+						}else{
+							nameNomenclaturaFuncion = f.getEscala()[0].getEnarmonico()+((FuncionEnumExt2)f.getFuncion()).getNomenclatura();
+						}
+						
 					}
 					
 					System.out.println("\t"+nameNomenclaturaFuncion+"\n");

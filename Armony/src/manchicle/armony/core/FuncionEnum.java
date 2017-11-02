@@ -1,6 +1,8 @@
 package manchicle.armony.core;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 public enum FuncionEnum {
 	
@@ -41,7 +43,7 @@ public enum FuncionEnum {
 	, men711("-DA", new TonoEnum[]{TonoEnum.m, TonoEnum.w, TonoEnum.c}, "-7(11)", 340)
 	
 	, maj7sus4("AD+", new TonoEnum[]{TonoEnum.c, TonoEnum.w, TonoEnum.M}, "maj7(sus4)", 400) 
-	, maj7sus2("DA+", new TonoEnum[]{TonoEnum.w, TonoEnum.c, TonoEnum.M}, "maj7(sus2)", 200)
+	, maj7sus2("DA+", new TonoEnum[]{TonoEnum.w, TonoEnum.c, TonoEnum.M}, "maj7(sus2)", 300)
 	, maj7sus2b5("D+A", new TonoEnum[]{TonoEnum.w, TonoEnum.M, TonoEnum.c}, "maj7(sus2)b5", 250)     
 
 	, maj713sus4("A+D", new TonoEnum[]{TonoEnum.c, TonoEnum.M, TonoEnum.w}, "maj7(sus4)13", 460) 
@@ -75,6 +77,8 @@ public enum FuncionEnum {
 	
 	, majMen7sus413("Cww", new TonoEnum[]{TonoEnum.C, TonoEnum.w, TonoEnum.w}, "7(sus#4)#5", 457)
 	
+	//, FncSus1113()
+	
 	, menMaj7sos5("Cww", new TonoEnum[]{TonoEnum.C, TonoEnum.w, TonoEnum.w}, "7(sus#4)#5", 457)
 	;
 	
@@ -91,6 +95,292 @@ public enum FuncionEnum {
 		return nomenclatura;
 	}
 	
+	//TODO refactorizar y revisar toda las posibilidades
+	public static String getName(ArrayList<NotaEnum> values) {
+		
+		StringBuffer name = new StringBuffer("C");
+		
+		NotaEnum auxNota;
+			
+			if ((auxNota = evaluateTercera(values) )!= null) { 
+				
+				name.append(auxNota.tono.name);
+				
+				if ((auxNota = evaluateSeptima(values)) != null) {
+					
+					name.append(auxNota.tono.name);
+					
+					if ((auxNota = evaluateSegunda(values)) != null || (auxNota = evaluateCuarta(values)) != null  || (auxNota = evaluateSexta(values)) != null) {
+						
+						name.append(auxNota.tono.name);
+						
+						if ((auxNota = evaluateQuinta(values)) != null) {
+							
+							name.append(auxNota.tono.name);
+							
+						} else if ( (auxNota = evaluateTercera(values)) != null || 	(auxNota = evaluateSeptima(values)) != null || (auxNota = evaluateSegunda(values)) != null) {
+							
+							name.append("(add");
+							
+							name.append(auxNota.tono.name2);
+							
+							name.append(")");
+							
+						} 
+					}
+				}else if ( (auxNota = evaluateSegunda(values)) != null || (auxNota = evaluateCuarta(values)) != null   || 	(auxNota = evaluateSexta(values)) != null)  {
+					
+					name.append(auxNota.tono.name);
+					
+					if ((auxNota = evaluateQuinta(values)) != null) {
+						
+						name.append(auxNota.tono.name);
+						
+					} else if ( (auxNota = evaluateTercera(values)) != null || 	(auxNota = evaluateSeptima(values)) != null || (auxNota = evaluateSegunda(values)) != null) {
+						
+						name.append("(add");
+						
+						name.append(auxNota.tono.name2);
+						
+						name.append(")");
+						
+					} 
+					
+				}else if ((auxNota = evaluateQuinta(values)) != null) {
+					
+					name.append(auxNota.tono.name);
+					
+				} else if ( (auxNota = evaluateTercera(values)) != null || 	(auxNota = evaluateSeptima(values)) != null || (auxNota = evaluateSegunda(values)) != null) {
+					
+					name.append("(add");
+					
+					name.append(auxNota.tono.name2);
+					
+					name.append(")");
+					
+				} 
+				
+			}else{
+				if ((auxNota = evaluateSegunda(values)) != null || (auxNota = evaluateCuarta(values)) != null) {
+					
+					name.append("(sus");
+					
+					name.append(auxNota.tono.name);
+					
+					name.append(")");
+					
+					if ((auxNota = evaluateSeptima(values)) != null) {
+						
+						name.append(auxNota.tono.name);
+						
+						if ((auxNota = evaluateSegunda(values)) != null || (auxNota = evaluateCuarta(values)) != null  || (auxNota = evaluateSexta(values)) != null) {
+							
+							name.append(auxNota.tono.name);
+							
+							if ((auxNota = evaluateQuinta(values)) != null) {
+								
+								name.append(auxNota.tono.name);
+							}
+						}
+					}else if ( (auxNota = evaluateSegunda(values)) != null || 	(auxNota = evaluateCuarta(values)) != null   || (auxNota = evaluateSexta(values)) != null)  {
+							
+							name.append(auxNota.tono.name);
+							
+							if ((auxNota = evaluateQuinta(values)) != null) {
+								
+								name.append(auxNota.tono.name);
+								
+							} else if ( (auxNota = evaluateTercera(values)) != null || 	(auxNota = evaluateSeptima(values)) != null || (auxNota = evaluateSegunda(values)) != null) {
+								
+								name.append("(add");
+								
+								name.append(auxNota.tono.name2);
+								
+								name.append(")");
+								
+							} 
+						}	
+				
+				}else{
+					name.append("(ommit3)");
+					
+					if ((auxNota = evaluateSeptima(values)) != null) {
+						
+						name.append(auxNota.tono.name);
+						
+						if ((auxNota = evaluateSegunda(values)) != null || (auxNota = evaluateCuarta(values)) != null  || (auxNota = evaluateSexta(values)) != null) {
+							
+							name.append(auxNota.tono.name);
+							
+							if ((auxNota = evaluateQuinta(values)) != null) {
+								
+								name.append(auxNota.tono.name);
+								
+							} else if ( (auxNota = evaluateTercera(values)) != null || 	(auxNota = evaluateSeptima(values)) != null || (auxNota = evaluateSegunda(values)) != null) {
+								
+								name.append("(add");
+								
+								name.append(auxNota.tono.name2);
+								
+								name.append(")");
+								
+							} 
+						}
+								
+					}else if ( (auxNota = evaluateSegunda(values)) != null || 	(auxNota = evaluateCuarta(values)) != null   || (auxNota = evaluateSexta(values)) != null)  {
+						
+						name.append(auxNota.tono.name);
+						
+						if ((auxNota = evaluateQuinta(values)) != null) {
+							
+							name.append(auxNota.tono.name);
+							
+						} else if ( (auxNota = evaluateTercera(values)) != null || 	(auxNota = evaluateSeptima(values)) != null || (auxNota = evaluateSegunda(values)) != null) {
+							
+							name.append("(add");
+							
+							name.append(auxNota.tono.name2);
+							
+							name.append(")");
+							
+						} 
+					}	
+				}
+			}
+			
+			if (values.isEmpty()) return name.toString();
+				
+			
+			if ( (auxNota = evaluateSegunda(values)) != null || 	(auxNota = evaluateCuarta(values)) != null   || (auxNota = evaluateSexta(values)) != null)  {
+				
+				name.append(auxNota.tono.name);
+				
+				if ((auxNota = evaluateQuinta(values)) != null) {
+					
+					name.append(auxNota.tono.name);
+					
+				} else if ( (auxNota = evaluateTercera(values)) != null || 	(auxNota = evaluateSeptima(values)) != null || (auxNota = evaluateSegunda(values)) != null) {
+					
+					name.append("(add");
+					
+					name.append(auxNota.tono.name2);
+					
+					name.append(")");
+					
+				}
+			}else if ((auxNota = evaluateQuinta(values)) != null) {
+				
+				name.append(auxNota.tono.name);
+				
+			} else if ( (auxNota = evaluateTercera(values)) != null || 	(auxNota = evaluateSeptima(values)) != null || (auxNota = evaluateSegunda(values)) != null) {
+				
+				name.append("(add");
+				
+				name.append(auxNota.tono.name2);
+				
+				name.append(")");
+				
+			} 
+		
+		return name.toString();
+			
+	}
+	
+	private static NotaEnum evaluateQuinta(Collection<NotaEnum> values) {
+		
+		NotaEnum out = null;
+		
+		if ( values.contains(NotaEnum.G) ){
+				values.remove(NotaEnum.G);
+				out = NotaEnum.G;
+		}
+		
+		return out;
+	}
+	
+	private static NotaEnum evaluateTercera(Collection<NotaEnum> values) {
+		NotaEnum out = null;
+		
+		if ( values.contains(NotaEnum.Dsos) ||  values.contains(NotaEnum.E) ){
+			if (values.contains(NotaEnum.Dsos)) {
+				values.remove(NotaEnum.Dsos);
+				out =  NotaEnum.Dsos;
+			}else {
+				values.remove(NotaEnum.E);
+				out = NotaEnum.E;
+			}
+		}
+		
+		return out;
+	}
+	
+	private static NotaEnum evaluateSegunda(Collection<NotaEnum> values) {
+		NotaEnum out = null;
+		
+		if ( values.contains(NotaEnum.Csos) ||  values.contains(NotaEnum.D) ){
+			if (values.contains(NotaEnum.Csos)) {
+				values.remove(NotaEnum.Csos);
+				out =   NotaEnum.Csos;
+			}else {
+				values.remove(NotaEnum.D);
+				out =  NotaEnum.D;
+			}
+		}
+		
+		return out;
+	}
+	
+	private static NotaEnum evaluateCuarta(Collection<NotaEnum> values) {
+		NotaEnum out = null;
+		
+		if ( values.contains(NotaEnum.F) ||  values.contains(NotaEnum.Fsos) ){
+			if (values.contains(NotaEnum.F)) {
+				values.remove(NotaEnum.F);
+				out =  NotaEnum.F;
+			}else {
+				values.remove(NotaEnum.Fsos);
+				out = NotaEnum.Fsos;
+			}
+		}
+		
+		return out;
+	}
+	
+	private static NotaEnum evaluateSeptima(Collection<NotaEnum> values) {
+		
+		NotaEnum out = null;
+		
+		if ( values.contains(NotaEnum.Asos) ||  values.contains(NotaEnum.B) ){
+			if (values.contains(NotaEnum.Asos)) {
+				values.remove(NotaEnum.Asos);
+				out =  NotaEnum.Asos;
+			}else {
+				values.remove(NotaEnum.B);
+				out = NotaEnum.B;
+			}
+		}
+		
+		return out;
+	}
+	
+	
+	
+	private static NotaEnum evaluateSexta(Collection<NotaEnum> values) {
+		NotaEnum out = null;
+		
+		if ( values.contains(NotaEnum.Gsos) ||  values.contains(NotaEnum.A) ){
+			if (values.contains(NotaEnum.Gsos)) {
+				values.remove(NotaEnum.Gsos);
+				out =   NotaEnum.Gsos;
+			}else{
+				values.remove(NotaEnum.A);
+				out =  NotaEnum.A;
+			}
+		}
+		
+		return out;
+	}
+
 	private FuncionEnum(String value, TonoEnum[] tono, String name, int representativa) {
 		
 		this.caption = value;
@@ -165,7 +455,17 @@ public enum FuncionEnum {
 
 	
 	public static void main(String[] args) {
-
+		
+		ArrayList<NotaEnum> notas = new ArrayList<NotaEnum>();
+		
+		notas.add(NotaEnum.C);
+		notas.add(NotaEnum.Asos);
+	notas.add(NotaEnum.E);
+		notas.add(NotaEnum.B);
+		
+		System.out.println(Arrays.asList(notas) + FuncionEnum.getName(notas));
+		
+		
 		TonoEnum[] tonos = new TonoEnum[]{TonoEnum.w, TonoEnum.m, TonoEnum.C};
 		
 		/*

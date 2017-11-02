@@ -1,12 +1,11 @@
 package manchicle.armony.core;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class FMajor extends Major implements IFuncion{
 	
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		
 		return funcion.getFuncionType();
 	}
@@ -42,7 +41,7 @@ public class FMajor extends Major implements IFuncion{
 		
 		List<NotaEnum[]> listaNotas = f.getEscalas();
 		
-		System.out.println(listaNotas.get(0)[0].nota+f.getFuncion().nomenclatura);
+		System.out.println(listaNotas.get(0)[0].nota+((FuncionEnum)f.getFuncion()).nomenclatura);
 
 		for (NotaEnum[] notaEnums : listaNotas) {
 			

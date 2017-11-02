@@ -28,7 +28,7 @@ public class F7 extends Major implements IFuncion{
 	}
 	
 	@Override
-	public FuncionEnum getFuncion() {
+	public Object getFuncion() {
 		
 		return funcion.getFuncionType();
 	}
